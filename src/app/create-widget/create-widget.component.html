@@ -1,0 +1,35 @@
+<h1>Tela de criação de grafico</h1>
+<app-chart #chart_template id="chart_template" width="100%" hegth="300px"
+            [optionGraph]="optionGraph"></app-chart>
+
+<mat-form-field class="filtro-chip-list">
+  <mat-chip-list #chipList>
+    <mat-chip *ngFor="let filtro of optionFilter" [selectable]="selectable"
+            [removable]="removable" (remove)="remove(filtro)" [color]="filtro.color">
+      {{filtro.name}}
+      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+    </mat-chip>
+    <input placeholder="New filtro..." #textoFiltro (keyup)="verifList(textoFiltro.value)"
+          matInput [formControl]="myControl"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="addOnBlur"
+          (matChipInputTokenEnd)="add($event)"
+          [matAutocomplete]="auto"/>
+  </mat-chip-list>
+</mat-form-field>
+<mat-autocomplete #auto="matAutocomplete">
+  <mat-option *ngFor="let option of options | filtroName: textoFiltro.value" (click)="selectOption(option, textoFiltro)" >
+    {{ option.name }}
+  </mat-option>
+</mat-autocomplete>
+
+<button mat-button (click)="addSerie()">Adicionar</button>
+
+<button mat-button (click)="executarGraph(chart_template)">Executar</button>
+
+<mat-selection-list>
+  <mat-list-item *ngFor="let op of optionGraph">
+    {{op.name}}
+  </mat-list-item>
+</mat-selection-list>
