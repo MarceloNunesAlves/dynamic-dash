@@ -23,7 +23,6 @@ export class BoardComponent implements OnInit {
   ];
 /*'Grafico 1','Grafico 2','Grafico 3','Grafico 4'*/
   ngOnInit() {
-      console.log('Entrou!!!!');
   }
 
 }

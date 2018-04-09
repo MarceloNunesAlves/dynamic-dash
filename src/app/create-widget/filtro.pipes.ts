@@ -7,7 +7,7 @@ export class FiltroName implements PipeTransform {
 
     transform(lista: any[], digitado: string): any[] {
         digitado = digitado.toLowerCase();
-        digitado = digitado.replace('flex4:', '');
+        digitado = digitado.replace('f4:', '');
         digitado = digitado.replace('&comelemento:', '');
         digitado = digitado.replace('&semelemento:', '');
         digitado = digitado.replace('&comgrupo:', '');

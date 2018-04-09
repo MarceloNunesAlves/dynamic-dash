@@ -4,7 +4,7 @@ export class SubItem {
     @Input() id: string;
     @Input() name: string;
     @Input() com: boolean;
-    @Input() color: string = this.com ? 'primary' : 'warn';
+    @Input() color: string = (this.com ? 'primary' : 'warn');
     origin: TypeOrigin;
 
     constructor(id: string, name: string) {
@@ -22,37 +22,28 @@ enum TypeOrigin {
 export class Metric {
     @Input() met_id: string;
     @Input() name: string;
+    @Input() tituloSerie: string;
     @Input() color: string = '';
     ndt_id: string;
     unit_type: string;
-    options: SubItem[];
+    options: SubItem[] = [];
 }
 
 export class DetailChart {
     listValues: ValueSerie[];
-    detailSerie: DetailSerie;
+    detailSerie: Metric;
 
-    constructor(detailSerie: DetailSerie, listValues: ValueSerie[]) {
+    constructor(detailSerie: Metric, listValues: ValueSerie[]) {
         this.detailSerie = detailSerie;
         this.listValues = listValues;
     }
 }
 
-export class DetailSerie {
-    name: string;
-    cod: string;
-
-    constructor(name: string, cod: string) {
-        this.name = name;
-        this.cod = cod;
-    }
-}
-
 export class ValueSerie {
-    time: Date;
+    time: string;
     value: string;
 
-    constructor(time: Date, value: string) {
+    constructor(time: string, value: string) {
         this.time = time;
         this.value = value;
     }

@@ -10,7 +10,7 @@ export class WidgetComponent implements OnInit {
   @Input() name: string;
 
   constructor() {
-    console.log(this.name);
+
   }
 
   ngOnInit() {

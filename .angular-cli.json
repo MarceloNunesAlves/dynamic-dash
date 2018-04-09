@@ -19,6 +19,7 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
+        "../node_modules/ng2-dnd/bundles/style.css",
         "styles.css"
       ],
       "scripts": [],

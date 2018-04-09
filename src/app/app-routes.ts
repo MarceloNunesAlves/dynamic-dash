@@ -7,19 +7,11 @@ import { CreateWidgetComponent } from './create-widget/create-widget.component';
 export const routes: Routes = [
     {
         path: '',
-        component: AppComponent,
-        children:
-            [
-                {
-                    path: '',
-                    redirectTo: 'main-board',
-                    pathMatch: 'full'
-                },
-                {
-                    path: 'main-board',
-                    component: BoardComponent
-                }
-            ]
+        component: BoardComponent
+    },
+    {
+        path: 'main-board',
+        component: BoardComponent
     },
     {
         path: 'create-widget',

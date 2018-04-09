@@ -1,7 +1,7 @@
 import { Http, Headers, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Metric, DetailChart, DetailSerie, ValueSerie } from './flex4.clazz';
+import { Metric, DetailChart, ValueSerie } from './flex4.clazz';
 
 
 @Injectable()
@@ -24,14 +24,14 @@ export class MetricService {
         return this.http.get(this.url + 'listMetricWithType/', { headers : this.headers }).map(res => res.json());
     }
 
-    values(metric: Metric): Observable<DetailChart> {
-        return this.http.post(this.url + 'listSerie/', metric, { headers : this.headers }).map(res => {
+    values(metrics: Metric[]): Observable<DetailChart[]> {
+        return this.http.post(this.url + 'listSerie/', metrics, { headers : this.headers }).map(res => {
             let item: any[] = res.json();
-            let listValues: ValueSerie[] = [];
+            let listReturn: DetailChart[] = [];
             item.forEach(element => {
-              listValues.push(new ValueSerie(new Date(element.time), element.value));
+                listReturn.push(element as DetailChart);
             });
-            return new DetailChart(new DetailSerie(metric.name, metric.unit_type), listValues);
+            return listReturn;
         });
     }
 }

@@ -1,3 +1,15 @@
+.page-main{
+    width: 100%;
+    padding: 0.5em;
+}
 .filtro-chip-list {
     width: 100%;
+}
+
+.form-graph {
+    width: 100%;
+}
+
+.button-action-add {
+    vertical-align: middle;
 }
