@@ -19,6 +19,13 @@ import { NodeService } from './services/node.service';
 import { GroupService } from './services/group.service';
 import { FiltroName } from './create-widget/filtro.pipes';
 
+/* Covalent - teradata.github.io */
+import { CovalentCommonModule, CovalentLayoutModule, CovalentMediaModule, CovalentExpansionPanelModule,
+        CovalentStepsModule, CovalentLoadingModule, CovalentDialogsModule, CovalentSearchModule, CovalentPagingModule,
+        CovalentNotificationsModule, CovalentMenuModule, CovalentDataTableModule, CovalentMessageModule } from '@covalent/core';
+
+import 'hammerjs';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +51,22 @@ import { FiltroName } from './create-widget/filtro.pipes';
     MatToolbarModule,
     MatSidenavModule,
     MatCardModule,
-    MatRadioModule
+    MatRadioModule,
+
+    /** Covalent Modules */
+    CovalentCommonModule,
+    CovalentLayoutModule,
+    CovalentMediaModule,
+    CovalentExpansionPanelModule,
+    CovalentStepsModule,
+    CovalentDialogsModule,
+    CovalentLoadingModule,
+    CovalentSearchModule,
+    CovalentPagingModule,
+    CovalentNotificationsModule,
+    CovalentMenuModule,
+    CovalentDataTableModule,
+    CovalentMessageModule
   ],
   providers: [ MetricService, SiteService, NodeService, GroupService ],
   bootstrap: [AppComponent],

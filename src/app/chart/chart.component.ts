@@ -18,21 +18,23 @@ export class ChartComponent implements OnInit {
 
     serviceMetric: MetricService;
 
-    /* Opções de filtro */
-    @Input() optionGraph: any[] = [];
-    @Input() optionArray: FormArray;
-    listData: DetailChart[];
-
     /* Atributo dos gráficos */
     id: string;
-    width: string = '100%';
     @Input() height: string;
-    caption: string = 'Grafico de teste';
-    subcaption: string = 'subtitulo';
-    xaxisname: string = 'Tempo';
-    type = 'mscombidy2d';
-    dataFormat = 'json';
+    @Input() caption: string = '';
+    @Input() classCol: string = '';
+    @Input() optionGraph: Metric[] = [];
+
+    /* Atributos transient */
+    width: string = '100%';
+    type: string = 'mscombidy2d';
+    dataFormat: string = 'json';
     dataSource: Chart = new Chart();
+
+    /* Opções de filtro */
+    @Input() optionArray: FormArray;
+
+    listData: DetailChart[];
 
     ngOnInit() {
     }
@@ -59,8 +61,6 @@ export class ChartComponent implements OnInit {
     executarGraph() {
         let chart: Chart = new Chart();
         chart.caption = this.caption;
-        chart.subcaption = this.subcaption;
-        chart.xaxisname = this.xaxisname;
         chart.labeldisplay = 'STAGGER';
         chart.numberprefix = '';
         chart.theme = 'fint';

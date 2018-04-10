@@ -7,10 +7,12 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class WidgetComponent implements OnInit {
 
+  id: number;
   @Input() name: string;
 
-  constructor() {
-
+  constructor(id: number, name: string) {
+    this.id = id;
+    this.name = name;
   }
 
   ngOnInit() {

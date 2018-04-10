@@ -1,0 +1,13 @@
+<form [formGroup]="formCreateDash">
+    <h4 mat-dialog-title>Criar um dashboard</h4>
+    <div mat-dialog-content>
+        <p>Nome:</p>
+        <mat-form-field class="input-box">
+            <input matInput [(ngModel)]="data.titleDash" formControlName="titleDash">
+        </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button mat-dialog-close (click)="onNoClick()">Cancelar</button>
+        <button mat-button (click)="salvar()" cdkFocusInitial>Salvar</button>
+    </div>
+</form>

@@ -1,24 +1,34 @@
-<mat-drawer-container class="menu-container" autosize>
-    <mat-drawer #drawer class="menu-sidenav" mode="side">
-        <mat-toolbar color="secondary">
-            <mat-toolbar-row>
-                <button type="button" mat-button>Criar Dashboard</button>
-            </mat-toolbar-row>
-            <mat-toolbar-row>
-                <button type="button" mat-button>Criar Datasource</button>
-            </mat-toolbar-row>   
-        </mat-toolbar>
-    </mat-drawer>
-    <div class="example-sidenav-content">
-        <mat-toolbar color="primary">
-            <mat-toolbar-row>
-                <mat-icon class="example-icon" (click)="drawer.toggle()">list</mat-icon>
-                <div class="title-app">
-                    <span>Dashboard - Dinâmico</span>
-                </div>
-            </mat-toolbar-row>
-        </mat-toolbar>
-              
-        <router-outlet></router-outlet>
-    </div>
-</mat-drawer-container>
+<td-layout>
+    <td-navigation-drawer flex [sidenavTitle]="title" logo="assets:covalent" name="Firstname Lastname" email="firstname.lastname@company.com">
+        <mat-nav-list>
+            <a mat-list-item>
+                <mat-icon>check</mat-icon>Criar Dashboard</a>
+            <a mat-list-item>
+                <mat-icon>check</mat-icon>Criar Datasource</a>
+        </mat-nav-list>
+    </td-navigation-drawer>
+    <td-layout-nav [toolbarTitle]="title">
+        <button mat-icon-button td-menu-button tdLayoutToggle>
+            <mat-icon>menu</mat-icon>
+        </button>
+        <div td-toolbar-content layout="row" layout-align="start center" flex>
+            <span flex></span>
+            <button mat-icon-button>
+                <mat-icon>notifications</mat-icon>
+            </button>
+            <button mat-icon-button>
+                <mat-icon>account_circle</mat-icon>
+            </button>
+        </div>
+        <mat-sidenav-container fullscreen>
+            <div layout-gt-sm="row" tdMediaToggle="gt-sm">
+                <router-outlet></router-outlet>
+            </div>
+        </mat-sidenav-container>
+    </td-layout-nav>
+    <td-layout-footer>
+        <div layout="row" layout-align="start center">
+            <span class="mat-caption">Copyright &copy; 2018 Graxa. All rights reserved</span>
+        </div>
+    </td-layout-footer>
+</td-layout>

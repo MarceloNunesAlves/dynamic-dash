@@ -1,17 +1,44 @@
+<!--<a mat-fab color="accent" matTooltip="Adicionar widget" matTooltipPosition="before" (click)="addRow()">
+    <mat-icon>add</mat-icon>
+</a>-->
+<button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="addRow()">
+        <mat-icon>add</mat-icon>
+        <span>Adicionar widget</span>
+    </button>
+    <button mat-menu-item>
+        <mat-icon>edit</mat-icon>
+        <span>Editar</span>
+    </button>
+    <button mat-menu-item>
+        <mat-icon>remover</mat-icon>
+        <span>Remover</span>
+    </button>
+</mat-menu>
+<button mat-icon-button [matMenuTriggerFor]="menuDash">
+    <mat-icon>apps</mat-icon>
+</button>
+<mat-menu #menuDash="matMenu">
+    <button mat-menu-item (click)="openDialog()">
+        <mat-icon>add</mat-icon>
+        <span>Adicionar dashboard</span>
+    </button>
+</mat-menu>
 <div class="container-fluid">
-    <h4>Dashboard - Teste (Flex)</h4>
     <div class="row" *ngFor="let row of rowsDrag; let row_index = index">
         <div class="col" *ngFor="let container of row.containers; let i = index">
             <div dnd-sortable-container [sortableData]="row.containers" [dropZones]="['container-dropZone']">
                 <div dnd-sortable [sortableIndex]="i">
-                    <div class="card bg-light mb-3"
-                        dnd-sortable-container [sortableData]="container.widgets" [dropZones]="['widget-dropZone']">
+                    <div class="card bg-light mb-3" dnd-sortable-container [sortableData]="container.widgets" [dropZones]="['widget-dropZone']">
                         <div class="card-header">
                             {{container.id}} - {{container.name}}
                         </div>
                         <div class="card-body">
-                            <app-widget *ngFor="let widget of container.widgets; let x = index"
-                                dnd-sortable [sortableIndex]="x" [dragData]="widget"></app-widget>
+                            <!--<app-widget *ngFor="let widget of container.widgets; let x = index"
+                                dnd-sortable [sortableIndex]="x" [dragData]="widget"></app-widget>-->
                         </div>
                     </div>
                 </div>
