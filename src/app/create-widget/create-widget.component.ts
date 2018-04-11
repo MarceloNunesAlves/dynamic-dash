@@ -9,6 +9,11 @@ import { FormControl, FormGroup, Validators, FormArray, FormBuilder } from '@ang
 import { ChartComponent } from '../chart/chart.component';
 import { SubItem, Metric } from '../services/flex4.clazz';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RowView, Dashboard } from '../services/dash.clazz';
+import { WidgetComponent } from '../widget/widget.component';
+import { WidgetService } from '../services/widget.service';
+import { RowViewService } from '../services/rowview.service';
 
 @Component({
   selector: 'app-create-widget',
@@ -18,12 +23,23 @@ import { MatAutocompleteSelectedEvent } from '@angular/material';
 export class CreateWidgetComponent implements OnInit {
 
   constructor(serviceMetric: MetricService, serviceSite: SiteService,
-    serviceGroup: GroupService, serviceNode: NodeService, fb: FormBuilder) {
+    serviceGroup: GroupService, serviceNode: NodeService, fb: FormBuilder,
+    serviceWidget: WidgetService, serviceRowView: RowViewService, route: ActivatedRoute, router: Router) {
     this.serviceMetric = serviceMetric;
     this.serviceSite = serviceSite;
     this.serviceGroup = serviceGroup;
     this.serviceNode = serviceNode;
+    this.serviceWidget = serviceWidget;
+    this.serviceRowView = serviceRowView;
     this.fb = fb;
+    this.route = route;
+    this.router = router;
+    this.widget = new WidgetComponent();
+
+    this.route.params.subscribe(params => {
+      this.idDash = params['idDash'];
+      console.log(this.idDash);
+    });
 
     this.formCreateGraph = new FormGroup({
       caption: new FormControl(),
@@ -33,6 +49,7 @@ export class CreateWidgetComponent implements OnInit {
     });
   }
 
+  idDash: number;
   visible: boolean = true;
   selectable: boolean = true;
   removable: boolean = true;
@@ -42,6 +59,8 @@ export class CreateWidgetComponent implements OnInit {
 
   formCreateGraph: FormGroup;
   fb: FormBuilder;
+  route: ActivatedRoute;
+  router: Router;
 
   // Enter, comma
   // separatorKeysCodes = [ENTER, COMMA];
@@ -54,6 +73,8 @@ export class CreateWidgetComponent implements OnInit {
   serviceSite: SiteService;
   serviceGroup: GroupService;
   serviceNode: NodeService;
+  serviceWidget: WidgetService;
+  serviceRowView: RowViewService;
 
   /*Dados do filtro*/
   options = [];
@@ -66,10 +87,24 @@ export class CreateWidgetComponent implements OnInit {
   optionFilter = [];
 
   /*Dados do chart*/
-  @Input() caption: string = '';
-  @Input() height: string = '300px';
+  @Input() widget : WidgetComponent;
   @Input() columnLayout: string = '1';
-  @Input() colGraph: string = 'col-lg-12';
+
+  salvarWidget() {
+    
+    if (this.widget.id) {
+      //Alteração
+      console.log('Alteração');
+    } else {
+      console.log('Inclusão');
+      //Inclusão
+      let dashSel: Dashboard = new Dashboard();
+      dashSel.id = this.idDash;
+
+      let rowView: RowView = new RowView(dashSel,[this.widget]);
+      this.serviceRowView.post(rowView).subscribe(res => console.log(res));
+    }    
+  }
 
   createItem(m: Metric): FormGroup {
     return this.fb.group(m);
@@ -136,7 +171,7 @@ export class CreateWidgetComponent implements OnInit {
   }
 
   executarGraph(chart: ChartComponent) {
-    chart.caption = this.caption;
+    chart.caption = this.widget.caption;
     chart.createGraph();
   }
 
@@ -292,11 +327,11 @@ export class CreateWidgetComponent implements OnInit {
 
   changeCol(): void {
     if (this.columnLayout === '1') {
-      this.colGraph = 'col-lg-12';
+      this.widget.classCol = 'col-lg-12';
     } else if (this.columnLayout === '2') {
-      this.colGraph = 'col-lg-6';
+      this.widget.classCol = 'col-lg-6';
     } else {
-      this.colGraph = 'col-lg-4';
+      this.widget.classCol = 'col-lg-4';
     }
   }
 }

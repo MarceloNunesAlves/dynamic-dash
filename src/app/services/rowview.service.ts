@@ -2,14 +2,14 @@ import { Http, Headers, Response } from '@angular/http';
 import { Injectable, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { WidgetComponent } from '../widget/widget.component';
-import { Dashboard } from './dash.clazz';
+import { Dashboard, RowView } from './dash.clazz';
 
 @Injectable()
-export class DashboardService {
+export class RowViewService {
 
     http: Http;
     headers: Headers;
-    url = 'http://localhost:9000/dashboard/';
+    url = 'http://localhost:9000/rowView/';
 
     constructor(http: Http) {
         this.http = http;
@@ -20,16 +20,16 @@ export class DashboardService {
         this.headers.append('Access-Control-Allow-Methods', 'POST, GET, OPTIONS, DELETE');
     }
 
-    get(id: number): Observable<Dashboard> {
+    get(id: number): Observable<RowView> {
         return this.http.get(this.url + id, { headers : this.headers }).map(res => res.json());
     }
 
-    list(): Observable<Array<Dashboard>> {
+    list(): Observable<Array<RowView>> {
         return this.http.get(this.url + 'list/', { headers : this.headers }).map(res => res.json());
     }
 
-    post(dashboard: Dashboard): Observable<Dashboard> {
-        return this.http.post(this.url, dashboard, { headers : this.headers }).map(res => {
+    post(rowView: RowView): Observable<RowView> {
+        return this.http.post(this.url, rowView, { headers : this.headers }).map(res => {
             return res.json();
         });
     }

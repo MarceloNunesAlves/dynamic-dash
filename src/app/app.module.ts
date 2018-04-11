@@ -17,6 +17,8 @@ import { MetricService } from './services/metric.service';
 import { SiteService } from './services/site.service';
 import { NodeService } from './services/node.service';
 import { GroupService } from './services/group.service';
+import { WidgetService } from './services/widget.service';
+import { RowViewService } from './services/rowview.service';
 import { FiltroName } from './create-widget/filtro.pipes';
 
 /* Covalent - teradata.github.io */
@@ -68,7 +70,7 @@ import 'hammerjs';
     CovalentDataTableModule,
     CovalentMessageModule
   ],
-  providers: [ MetricService, SiteService, NodeService, GroupService ],
+  providers: [ MetricService, SiteService, NodeService, GroupService, WidgetService, RowViewService ],
   bootstrap: [AppComponent],
   exports: [
     FiltroName

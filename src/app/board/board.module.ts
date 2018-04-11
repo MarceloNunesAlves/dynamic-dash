@@ -4,6 +4,7 @@ import { BoardComponent, DialogDashboardComponent } from './board.component';
 import { WidgetModule} from '../widget/widget.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DndModule } from 'ng2-dnd';
+import { RouterModule } from '@angular/router';
 import { DashboardService } from '../services/dashboard.service';
 import { MatChipsModule, MatInputModule, MatIconModule, MatButtonModule,
   MatAutocompleteModule, MatListModule, MatToolbarModule, MatSidenavModule,
@@ -16,6 +17,7 @@ import { MatChipsModule, MatInputModule, MatIconModule, MatButtonModule,
     MatChipsModule, MatInputModule, MatIconModule, MatButtonModule,
     MatAutocompleteModule, MatListModule, MatToolbarModule, MatSidenavModule,
     MatCardModule, MatRadioModule, MatExpansionModule, MatMenuModule,
+    RouterModule,
     DndModule.forRoot()
   ],
   entryComponents: [DialogDashboardComponent],

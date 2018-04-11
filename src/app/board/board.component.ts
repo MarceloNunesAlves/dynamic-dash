@@ -2,7 +2,8 @@ import { Component, OnInit, Input, Inject } from '@angular/core';
 import { WidgetComponent } from '../widget/widget.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormControl, FormGroup, Validators, FormArray, FormBuilder } from '@angular/forms';
-import { RowView, Dashboard, DashboardService } from '../services/dashboard.service';
+import { DashboardService } from '../services/dashboard.service';
+import { RowView, Dashboard } from '../services/dash.clazz';
 import { element } from 'protractor';
 
 @Component({
@@ -13,27 +14,23 @@ import { element } from 'protractor';
 })
 export class BoardComponent implements OnInit {
 
-  @Input() rowsDrag: Array<RowView> = [
-    new RowView(1, [
-      new WidgetComponent(1, 'Container 1'),
-      new WidgetComponent(2, 'Container 2')
-    ]),
-    new RowView(2, [
-      new WidgetComponent(3, 'Container 3'),
-    ]),
-    new RowView(4, [
-      new WidgetComponent(4, 'Container 4'),
-    ])
-  ];
+  @Input() dashboard: Dashboard = new Dashboard();
+  dashboards: Array<Dashboard>;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, public service: DashboardService) {
+    service.list().subscribe((res) => {
+      this.dashboards = res;
+      if (this.dashboards.length>0) {
+        this.dashboard = this.dashboards[0];
+      }
+    });
+  }
 
-  /*'Grafico 1','Grafico 2','Grafico 3','Grafico 4'*/
   ngOnInit() {
   }
 
   addRow() {
-    this.rowsDrag.push(new RowView(5, [new WidgetComponent(5, 'Container 5')]));
+    //this.dashboard.rowsView.push(new RowView(1, [new WidgetComponent()]));
   }
 
   openDialog(): void {

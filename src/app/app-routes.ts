@@ -14,7 +14,11 @@ export const routes: Routes = [
         component: BoardComponent
     },
     {
-        path: 'create-widget',
+        path: 'widget',
+        component: CreateWidgetComponent
+    },
+    {
+        path: 'widget/dash/:idDash',
         component: CreateWidgetComponent
     }
 ];

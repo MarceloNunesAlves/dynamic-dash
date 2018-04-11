@@ -5,7 +5,7 @@
     <mat-icon>more_vert</mat-icon>
 </button>
 <mat-menu #menu="matMenu">
-    <button mat-menu-item (click)="addRow()">
+    <button mat-menu-item [routerLink]="['/widget/dash/', dashboard.id]">
         <mat-icon>add</mat-icon>
         <span>Adicionar widget</span>
     </button>
@@ -28,7 +28,7 @@
     </button>
 </mat-menu>
 <div class="container-fluid">
-    <div class="row" *ngFor="let row of rowsDrag; let row_index = index">
+    <div class="row" *ngFor="let row of dashboard.rowsView; let row_index = index">
         <div class="col" *ngFor="let container of row.containers; let i = index">
             <div dnd-sortable-container [sortableData]="row.containers" [dropZones]="['container-dropZone']">
                 <div dnd-sortable [sortableIndex]="i">

@@ -8,14 +8,14 @@
         <div class="row">
           <div class="col">
             <mat-form-field class="form-graph">
-              <input placeholder="Titulo do gráfico:" matInput [(ngModel)]="caption" formControlName="caption" />
+              <input placeholder="Titulo do gráfico:" matInput [(ngModel)]="widget.caption" formControlName="caption" />
             </mat-form-field>
           </div>
         </div>
         <div class="row">
           <div class="col-8">
             <mat-form-field class="form-graph">
-              <input placeholder="Altura:" matInput [(ngModel)]="height" formControlName="height" />
+              <input placeholder="Altura:" matInput [(ngModel)]="widget.height" formControlName="height" />
             </mat-form-field>
           </div>
           <div class="col-4">
@@ -27,8 +27,8 @@
           </div>
         </div>
         <div class="row">
-          <div class="{{colGraph}}">
-            <app-chart #chart_template id="chart_template" [optionArray]="optionGraph" width="100px" [height]="height"></app-chart>
+          <div [class]="widget.classCol">
+            <app-chart #chart_template id="chart_template" [optionArray]="optionGraph" width="100px" [height]="widget.height"></app-chart>
           </div>
         </div>
         <div class="row">
@@ -40,7 +40,7 @@
                   {{filtro.name}}
                   <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                 </mat-chip>
-                <input placeholder="New filtro..." #textoFiltro (keyup)="verifList($event, textoFiltro.value)" matInput [formControl]="chipControl"
+                <input placeholder="Novo filtro..." #textoFiltro (keyup)="verifList($event, textoFiltro.value)" matInput [formControl]="chipControl"
                   [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
                   (matChipInputTokenEnd)="add($event)" [matAutocomplete]="auto" />
               </mat-chip-list>
@@ -90,6 +90,13 @@
               </mat-expansion-panel>
             </mat-accordion>
           </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <button mat-raised-button color="primary" (click)="salvarWidget()">
+              Salvar
+            </button>
           </div>
         </div>
       </form>
