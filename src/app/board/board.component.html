@@ -9,33 +9,15 @@
         <mat-icon>add</mat-icon>
         <span>Adicionar widget</span>
     </button>
-    <button mat-menu-item>
-        <mat-icon>edit</mat-icon>
-        <span>Editar</span>
-    </button>
-    <button mat-menu-item>
-        <mat-icon>remover</mat-icon>
-        <span>Remover</span>
-    </button>
-</mat-menu>
-<button mat-icon-button [matMenuTriggerFor]="menuDash">
-    <mat-icon>apps</mat-icon>
-</button>
-<mat-menu #menuDash="matMenu">
-    <button mat-menu-item (click)="openDialog()">
-        <mat-icon>add</mat-icon>
-        <span>Adicionar dashboard</span>
-    </button>
-    <button mat-menu-item (click)="viewDash()">
+    <button mat-menu-item (click)="updateDash()">
         <mat-icon>check</mat-icon>
-        <span>view dashboard</span>
+        <span>Atualizar dashboard</span>
     </button>
 </mat-menu>
-<div class="container-fluid" (onDropSuccess)="viewDash()">
+<div class="container-fluid">
     <div class="row" *ngFor="let row of dashboard.rowsView; let row_index = index">
         <div class="{{widget.classCol}}" *ngFor="let widget of row.widgets; let i = index">
-            <div dnd-sortable-container [sortableData]="row.widgets" [dropZones]="['container-dropZone']"
-                >
+            <div dnd-sortable-container [sortableData]="row.widgets" [dropZones]="['container-dropZone']">
                 <div dnd-sortable [sortableIndex]="i">
                     <app-widget [caption]="widget.caption" [height]="widget.height"
                                 [optionGraph]="widget.optionGraph">

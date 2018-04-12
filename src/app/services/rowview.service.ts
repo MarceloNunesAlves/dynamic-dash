@@ -33,4 +33,9 @@ export class RowViewService {
             return res.json();
         });
     }
+
+    delete(rowView: RowView): any {
+        return this.http.post(this.url + 'delete/', rowView, { headers : this.headers });
+    }
+
 }

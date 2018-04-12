@@ -22,7 +22,6 @@ export class WidgetComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.optionGraph);
   }
 
   ngAfterViewInit() {

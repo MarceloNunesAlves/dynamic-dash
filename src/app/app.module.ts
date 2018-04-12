@@ -5,7 +5,7 @@ import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import 'rxjs/add/operator/map';
 import { RoutingModule } from './app-routes';
-import { AppComponent } from './app.component';
+import { AppComponent, DialogDashboardComponent } from './app.component';
 import { BoardModule } from './board/board.module';
 import { ChartModule } from './chart/chart.module';
 import { CreateWidgetComponent } from './create-widget/create-widget.component';
@@ -32,8 +32,10 @@ import 'hammerjs';
   declarations: [
     AppComponent,
     CreateWidgetComponent,
-    FiltroName
+    FiltroName,
+    DialogDashboardComponent
   ],
+  entryComponents: [DialogDashboardComponent],
   imports: [
     BrowserModule,
     RoutingModule,

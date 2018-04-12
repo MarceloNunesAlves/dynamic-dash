@@ -1,4 +1,4 @@
-<div class="card bg-light mb-3">
+<!--<div class="card bg-light mb-3">
     <div class="card-header">
         {{caption}}
     </div>
@@ -6,4 +6,15 @@
         <app-chart #chart_dash id="chart_dash"
                   [optionGraph]="optionGraph" width="100px" [height]="height"></app-chart>
     </div>
-</div>
+</div>-->
+<mat-card class="card-box">
+    <mat-card-header class="card-box-button">
+        <button mat-icon-button>
+            <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button>
+            <mat-icon>delete</mat-icon>
+        </button>
+    </mat-card-header>
+    <app-chart #chart_dash id="chart_dash" [caption]="caption" [optionGraph]="optionGraph" width="100px" [height]="height"></app-chart>
+</mat-card>

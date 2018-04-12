@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BoardComponent, DialogDashboardComponent } from './board.component';
+import { BoardComponent } from './board.component';
 import { WidgetModule} from '../widget/widget.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { DndModule } from 'ng2-dnd';
@@ -20,9 +20,8 @@ import { MatChipsModule, MatInputModule, MatIconModule, MatButtonModule,
     RouterModule,
     DndModule.forRoot()
   ],
-  entryComponents: [DialogDashboardComponent],
   declarations: [
-    BoardComponent, DialogDashboardComponent
+    BoardComponent
   ],
   providers: [
     DashboardService
