@@ -24,8 +24,8 @@ export class RowViewService {
         return this.http.get(this.url + id, { headers : this.headers }).map(res => res.json());
     }
 
-    list(): Observable<Array<RowView>> {
-        return this.http.get(this.url + 'list/', { headers : this.headers }).map(res => res.json());
+    listByDashboard(dashboard: Dashboard): Observable<Array<RowView>> {
+        return this.http.post(this.url + 'listByDashboard/', dashboard, { headers : this.headers }).map(res => res.json());
     }
 
     post(rowView: RowView): Observable<RowView> {

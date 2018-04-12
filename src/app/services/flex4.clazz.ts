@@ -1,14 +1,14 @@
 import { Input } from '@angular/core';
 
 export class SubItem {
-    @Input() id: string;
+    @Input() idOri: string;
     @Input() name: string;
     @Input() com: boolean;
     @Input() color: string = (this.com ? 'primary' : 'warn');
     origin: TypeOrigin;
 
-    constructor(id: string, name: string) {
-        this.id = id;
+    constructor(idOri: string, name: string) {
+        this.idOri = idOri;
         this.name = name;
     }
 }

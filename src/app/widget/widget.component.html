@@ -1,4 +1,9 @@
-<div>
-  <app-chart></app-chart>
-  <ng-content></ng-content>
+<div class="card bg-light mb-3">
+    <div class="card-header">
+        {{caption}}
+    </div>
+    <div class="card-body">
+        <app-chart #chart_dash id="chart_dash"
+                  [optionGraph]="optionGraph" width="100px" [height]="height"></app-chart>
+    </div>
 </div>

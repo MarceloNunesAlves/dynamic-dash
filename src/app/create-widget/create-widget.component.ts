@@ -35,6 +35,8 @@ export class CreateWidgetComponent implements OnInit {
     this.route = route;
     this.router = router;
     this.widget = new WidgetComponent();
+    this.widget.height = '250px';
+    this.widget.classCol = 'col-lg-12';
 
     this.route.params.subscribe(params => {
       this.idDash = params['idDash'];
@@ -87,23 +89,28 @@ export class CreateWidgetComponent implements OnInit {
   optionFilter = [];
 
   /*Dados do chart*/
-  @Input() widget : WidgetComponent;
+  @Input() widget: WidgetComponent;
   @Input() columnLayout: string = '1';
 
   salvarWidget() {
-    
+
     if (this.widget.id) {
-      //Alteração
+      // Alteração
       console.log('Alteração');
     } else {
+      // Inclusão
       console.log('Inclusão');
-      //Inclusão
-      let dashSel: Dashboard = new Dashboard();
+      this.widget.optionGraph = [];
+      this.optionGraph.value.forEach(element => {
+        this.widget.optionGraph.push(element);
+      });
+      const dashSel: Dashboard = new Dashboard();
       dashSel.id = this.idDash;
-
-      let rowView: RowView = new RowView(dashSel,[this.widget]);
+      const rowView: RowView = new RowView(dashSel, [this.widget]);
+      console.log(rowView);
       this.serviceRowView.post(rowView).subscribe(res => console.log(res));
-    }    
+    }
+    this.router.navigateByUrl('/');
   }
 
   createItem(m: Metric): FormGroup {

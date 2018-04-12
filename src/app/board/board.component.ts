@@ -5,6 +5,7 @@ import { FormControl, FormGroup, Validators, FormArray, FormBuilder } from '@ang
 import { DashboardService } from '../services/dashboard.service';
 import { RowView, Dashboard } from '../services/dash.clazz';
 import { element } from 'protractor';
+import { RowViewService } from '../services/rowview.service';
 
 @Component({
   moduleId: module.id,
@@ -17,24 +18,32 @@ export class BoardComponent implements OnInit {
   @Input() dashboard: Dashboard = new Dashboard();
   dashboards: Array<Dashboard>;
 
-  constructor(public dialog: MatDialog, public service: DashboardService) {
+  constructor(public dialog: MatDialog, public service: DashboardService, public serviceRowView: RowViewService) {
     service.list().subscribe((res) => {
       this.dashboards = res;
-      if (this.dashboards.length>0) {
+      if (this.dashboards.length > 0) {
         this.dashboard = this.dashboards[0];
+        serviceRowView.listByDashboard(this.dashboard).subscribe(rows => {
+          rows.forEach(row => this.dashboard.rowsView.push(row));
+        });
       }
     });
+    console.log('Construtor!!!');
   }
 
   ngOnInit() {
   }
 
+  viewDash() {
+    console.log(this.dashboard);
+  }
+
   addRow() {
-    //this.dashboard.rowsView.push(new RowView(1, [new WidgetComponent()]));
+    // this.dashboard.rowsView.push(new RowView(1, [new WidgetComponent()]));
   }
 
   openDialog(): void {
-    let dialogRef = this.dialog.open(DialogDashboardComponent, {
+    const dialogRef = this.dialog.open(DialogDashboardComponent, {
       width: '350px',
       data: new Dashboard()
     });
@@ -42,7 +51,7 @@ export class BoardComponent implements OnInit {
 }
 
 @Component({
-  selector: 'dialog-add-dash',
+  selector: 'app-dialog-add-dash',
   styleUrls: ['board.dialog-add-dash.css'],
   templateUrl: 'board.dialog-add-dash.html'
 })

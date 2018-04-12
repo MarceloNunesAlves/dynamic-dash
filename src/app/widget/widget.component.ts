@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, Input, ViewChild } from '@angular/core';
 import { SubItem, Metric } from '../services/flex4.clazz';
+import { Chart, ChartComponent } from '../chart/chart.component';
 
 @Component({
   selector: 'app-widget',
@@ -10,14 +11,22 @@ export class WidgetComponent implements OnInit {
 
   id: number;
   @Input() name: string;
-	@Input() height: string;
+  @Input() height: string;
   @Input() classCol: string;
   @Input() caption: string;
-  @Input() optionGraph: Metric[];
+  @Input() optionGraph: Metric[] = [];
 
-  constructor() {}
+  @ViewChild('chart_dash') chart: ChartComponent;
+
+  constructor() {
+  }
 
   ngOnInit() {
+    console.log(this.optionGraph);
+  }
+
+  ngAfterViewInit() {
+    this.chart.createGraph();
   }
 
 }

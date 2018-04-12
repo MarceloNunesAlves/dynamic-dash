@@ -1,4 +1,4 @@
-import { Input } from "@angular/core";
+import { Input } from '@angular/core';
 import { WidgetComponent } from '../widget/widget.component';
 
 export class Dashboard {
@@ -12,7 +12,7 @@ export class Dashboard {
 export class RowView {
     id: number;
     dashboard: Dashboard;
-    constructor(dashboard: Dashboard, public containers: Array<WidgetComponent>) {
+    constructor(dashboard: Dashboard, public widgets: Array<WidgetComponent>) {
         this.dashboard = dashboard;
     }
 }

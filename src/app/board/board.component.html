@@ -26,21 +26,20 @@
         <mat-icon>add</mat-icon>
         <span>Adicionar dashboard</span>
     </button>
+    <button mat-menu-item (click)="viewDash()">
+        <mat-icon>check</mat-icon>
+        <span>view dashboard</span>
+    </button>
 </mat-menu>
-<div class="container-fluid">
+<div class="container-fluid" (onDropSuccess)="viewDash()">
     <div class="row" *ngFor="let row of dashboard.rowsView; let row_index = index">
-        <div class="col" *ngFor="let container of row.containers; let i = index">
-            <div dnd-sortable-container [sortableData]="row.containers" [dropZones]="['container-dropZone']">
+        <div class="{{widget.classCol}}" *ngFor="let widget of row.widgets; let i = index">
+            <div dnd-sortable-container [sortableData]="row.widgets" [dropZones]="['container-dropZone']"
+                >
                 <div dnd-sortable [sortableIndex]="i">
-                    <div class="card bg-light mb-3" dnd-sortable-container [sortableData]="container.widgets" [dropZones]="['widget-dropZone']">
-                        <div class="card-header">
-                            {{container.id}} - {{container.name}}
-                        </div>
-                        <div class="card-body">
-                            <!--<app-widget *ngFor="let widget of container.widgets; let x = index"
-                                dnd-sortable [sortableIndex]="x" [dragData]="widget"></app-widget>-->
-                        </div>
-                    </div>
+                    <app-widget [caption]="widget.caption" [height]="widget.height"
+                                [optionGraph]="widget.optionGraph">
+                    </app-widget>
                 </div>
             </div>
         </div>
