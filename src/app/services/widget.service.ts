@@ -33,4 +33,8 @@ export class WidgetService {
             return res.json();
         });
     }
+
+    delete(widget: WidgetComponent): Observable<any> {
+        return this.http.delete(this.url + widget.id, { headers : this.headers });
+    }
 }

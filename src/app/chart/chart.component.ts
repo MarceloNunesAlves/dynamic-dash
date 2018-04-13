@@ -81,7 +81,7 @@ export class ChartComponent implements OnInit {
                 dataSerie.push(new DataSerie(itemValue.value));
             });
             chart.categories.push(new Categories(categoryChart));
-            let objDetailSerie = new Dataset(detail.detailSerie.name, dataSerie);
+            let objDetailSerie = new Dataset(detail.detailSerie.tituloSerie, dataSerie);
 
             if ((yaxisname !== detail.detailSerie.unit_type && !different) || different) {
                 objDetailSerie.parentyaxis = 'S';

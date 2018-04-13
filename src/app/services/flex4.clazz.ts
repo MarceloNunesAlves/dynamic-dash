@@ -1,6 +1,7 @@
 import { Input } from '@angular/core';
 
 export class SubItem {
+    id: number;
     @Input() idOri: string;
     @Input() name: string;
     @Input() com: boolean;
@@ -20,6 +21,7 @@ enum TypeOrigin {
 }
 
 export class Metric {
+    id: number;
     @Input() met_id: string;
     @Input() name: string;
     @Input() tituloSerie: string;

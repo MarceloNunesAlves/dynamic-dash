@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MetricService } from '../services/metric.service';
 import { SiteService } from '../services/site.service';
 import { NodeService } from '../services/node.service';
@@ -21,35 +21,6 @@ import { RowViewService } from '../services/rowview.service';
   styleUrls: ['./create-widget.component.css']
 })
 export class CreateWidgetComponent implements OnInit {
-
-  constructor(serviceMetric: MetricService, serviceSite: SiteService,
-    serviceGroup: GroupService, serviceNode: NodeService, fb: FormBuilder,
-    serviceWidget: WidgetService, serviceRowView: RowViewService, route: ActivatedRoute, router: Router) {
-    this.serviceMetric = serviceMetric;
-    this.serviceSite = serviceSite;
-    this.serviceGroup = serviceGroup;
-    this.serviceNode = serviceNode;
-    this.serviceWidget = serviceWidget;
-    this.serviceRowView = serviceRowView;
-    this.fb = fb;
-    this.route = route;
-    this.router = router;
-    this.widget = new WidgetComponent();
-    this.widget.height = '250px';
-    this.widget.classCol = 'col-lg-12';
-
-    this.route.params.subscribe(params => {
-      this.idDash = params['idDash'];
-      console.log(this.idDash);
-    });
-
-    this.formCreateGraph = new FormGroup({
-      caption: new FormControl(),
-      height: new FormControl(),
-      columnLayout: new FormControl(),
-      items: this.fb.array([])
-    });
-  }
 
   idDash: number;
   visible: boolean = true;
@@ -90,25 +61,66 @@ export class CreateWidgetComponent implements OnInit {
 
   /*Dados do chart*/
   @Input() widget: WidgetComponent;
-  @Input() columnLayout: string = '1';
 
-  salvarWidget() {
+  @ViewChild('chart_template') chart: ChartComponent;
+
+  constructor(serviceMetric: MetricService, serviceSite: SiteService,
+    serviceGroup: GroupService, serviceNode: NodeService, fb: FormBuilder,
+    serviceWidget: WidgetService, serviceRowView: RowViewService, route: ActivatedRoute, router: Router) {
+    this.serviceMetric = serviceMetric;
+    this.serviceSite = serviceSite;
+    this.serviceGroup = serviceGroup;
+    this.serviceNode = serviceNode;
+    this.serviceWidget = serviceWidget;
+    this.serviceRowView = serviceRowView;
+    this.fb = fb;
+    this.route = route;
+    this.router = router;
+    this.widget = new WidgetComponent(serviceWidget, null);
+    this.widget.height = '250px';
+    this.widget.columnLayout = '1';
+    this.changeCol();
+
+    this.route.params.subscribe(params => {
+      let id = params['id'];
+      if (id) {
+        serviceWidget.get(id).subscribe(res => {
+          this.widget = res;
+          this.widget.optionGraph.forEach(item => this.addItem(item));
+          this.chart.createGraph();
+        });
+      } else {
+        this.idDash = params['idDash'];
+      }
+    });
+
+    this.formCreateGraph = new FormGroup({
+      id: new FormControl(),
+      caption: new FormControl(),
+      height: new FormControl(),
+      columnLayout: new FormControl(),
+      items: this.fb.array([])
+    });
+  }
+
+  salvarWidget(event) {
+    event.preventDefault();
+
+    // Preencher itens do widget
+    this.widget.optionGraph = [];
+    this.optionGraph.value.forEach(element => {
+      this.widget.optionGraph.push(element);
+    });
 
     if (this.widget.id) {
       // Alteração
-      console.log('Alteração');
+      this.serviceWidget.post(this.widget).subscribe();
     } else {
       // Inclusão
-      console.log('Inclusão');
-      this.widget.optionGraph = [];
-      this.optionGraph.value.forEach(element => {
-        this.widget.optionGraph.push(element);
-      });
       const dashSel: Dashboard = new Dashboard();
       dashSel.id = this.idDash;
       const rowView: RowView = new RowView(dashSel, [this.widget]);
-      console.log(rowView);
-      this.serviceRowView.post(rowView).subscribe(res => console.log(res));
+      this.serviceRowView.post(rowView).subscribe();
     }
     this.router.navigateByUrl('/');
   }
@@ -129,13 +141,7 @@ export class CreateWidgetComponent implements OnInit {
         mAux.options.push(elemItem);
       }
     });
-/*
-    let items = this.formCreateGraph.get('items') as FormArray;
-    items.push(this.createItem(mAux));
-    const metricFGs = this.optionGraph.map(metric => this.fb.group(metric));
-    const metricFormArray = this.fb.array(metricFGs);
-    this.formCreateGraph.setControl('items', metricFormArray);
-*/
+
     this.addItem(mAux);
 
     this.optionFilter = [];
@@ -145,24 +151,25 @@ export class CreateWidgetComponent implements OnInit {
   }
 
   addItem(m: Metric) {
-    let formGroupItem = this.fb.group({met_id: m.met_id, name: m.name, tituloSerie: m.tituloSerie,
-                                    ndt_id: m.ndt_id, unit_type: m.unit_type,
-                                    options: this.fb.array(m.options)
-                                  });
+    let formGroupItem = this.fb.group({
+      id: m.id, met_id: m.met_id, name: m.name,
+      tituloSerie: m.tituloSerie, ndt_id: m.ndt_id,
+      unit_type: m.unit_type, options: this.fb.array(m.options)
+    });
     this.optionGraph.push(formGroupItem);
 
     this.sortItems();
   }
 
   sortItems() {
-      this.optionGraph.patchValue(this.optionGraph.value.sort((obj1, obj2) => {
-        if (obj1.unit_type > obj2.unit_type) {
-            return this.sortDesc ? -1 : 1;
-        }
-        if (obj1.unit_type < obj2.unit_type) {
-            return this.sortDesc ? 1 : -1;
-        }
-        return 0;
+    this.optionGraph.patchValue(this.optionGraph.value.sort((obj1, obj2) => {
+      if (obj1.unit_type > obj2.unit_type) {
+        return this.sortDesc ? -1 : 1;
+      }
+      if (obj1.unit_type < obj2.unit_type) {
+        return this.sortDesc ? 1 : -1;
+      }
+      return 0;
     }));
   }
 
@@ -333,12 +340,12 @@ export class CreateWidgetComponent implements OnInit {
   }
 
   changeCol(): void {
-    if (this.columnLayout === '1') {
+    if (this.widget.columnLayout == '1') {
       this.widget.classCol = 'col-lg-12';
-    } else if (this.columnLayout === '2') {
-      this.widget.classCol = 'col-lg-6';
+    } else if (this.widget.columnLayout == '2') {
+      this.widget.classCol = 'col-lg-6 col-md-12';
     } else {
-      this.widget.classCol = 'col-lg-4';
+      this.widget.classCol = 'col-lg-4 col-md-6 col-sm-12';
     }
   }
 }

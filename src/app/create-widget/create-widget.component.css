@@ -13,3 +13,11 @@
 .button-action-add {
     vertical-align: middle;
 }
+
+.col-btn-salvar{
+    margin-top: 0.4em;
+}
+
+.col-btn-salvar button {
+    float: right;
+}

@@ -1,6 +1,3 @@
-<!--<a mat-fab color="accent" matTooltip="Adicionar widget" matTooltipPosition="before" (click)="addRow()">
-    <mat-icon>add</mat-icon>
-</a>-->
 <button mat-icon-button [matMenuTriggerFor]="menu">
     <mat-icon>more_vert</mat-icon>
 </button>
@@ -19,8 +16,7 @@
         <div class="{{widget.classCol}}" *ngFor="let widget of row.widgets; let i = index">
             <div dnd-sortable-container [sortableData]="row.widgets" [dropZones]="['container-dropZone']">
                 <div dnd-sortable [sortableIndex]="i">
-                    <app-widget [caption]="widget.caption" [height]="widget.height"
-                                [optionGraph]="widget.optionGraph">
+                    <app-widget [id]="widget.id" [caption]="widget.caption" #widget_main [height]="widget.height" [optionGraph]="widget.optionGraph">
                     </app-widget>
                 </div>
             </div>

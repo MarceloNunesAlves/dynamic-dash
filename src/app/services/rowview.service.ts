@@ -34,8 +34,8 @@ export class RowViewService {
         });
     }
 
-    delete(rowView: RowView): any {
-        return this.http.post(this.url + 'delete/', rowView, { headers : this.headers });
+    delete(rowView: RowView): void {
+        this.http.delete(this.url + rowView.id, { headers : this.headers });
     }
 
 }

@@ -18,6 +18,10 @@ export const routes: Routes = [
         component: CreateWidgetComponent
     },
     {
+        path: 'widget/:id',
+        component: CreateWidgetComponent
+    },
+    {
         path: 'widget/dash/:idDash',
         component: CreateWidgetComponent
     }

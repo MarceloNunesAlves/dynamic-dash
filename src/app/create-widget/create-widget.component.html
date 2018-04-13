@@ -4,7 +4,8 @@
       Criação de grafico
     </div>
     <div class="card-body">
-      <form [formGroup]="formCreateGraph">
+      <form [formGroup]="formCreateGraph" (submit)="salvarWidget($event)">
+        <input type="hidden" [(ngModel)]="widget.id" formControlName="id" />
         <div class="row">
           <div class="col">
             <mat-form-field class="form-graph">
@@ -19,7 +20,7 @@
             </mat-form-field>
           </div>
           <div class="col-4">
-            <mat-radio-group [(ngModel)]="columnLayout" formControlName="columnLayout" (change)="changeCol()">
+            <mat-radio-group [(ngModel)]="widget.columnLayout" formControlName="columnLayout" (change)="changeCol()">
               <mat-radio-button value="1">Tamanho 1</mat-radio-button>
               <mat-radio-button value="2">Tamanho 2</mat-radio-button>
               <mat-radio-button value="3">Tamanho 3</mat-radio-button>
@@ -93,8 +94,8 @@
           </div>
         </div>
         <div class="row">
-          <div class="col">
-            <button mat-raised-button color="primary" (click)="salvarWidget()">
+          <div class="col col-btn-salvar">
+            <button mat-raised-button color="primary" type="submit">
               Salvar
             </button>
           </div>

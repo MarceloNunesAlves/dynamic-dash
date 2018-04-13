@@ -6,6 +6,7 @@ import { DashboardService } from '../services/dashboard.service';
 import { RowView, Dashboard } from '../services/dash.clazz';
 import { element } from 'protractor';
 import { RowViewService } from '../services/rowview.service';
+import { WidgetService } from '../services/widget.service';
 
 @Component({
   moduleId: module.id,
@@ -37,9 +38,7 @@ export class BoardComponent {
           console.log(res);
         });
       } else {
-        this.serviceRowView.delete(row).subscribe(res => {
-          console.log(res);
-        });
+        this.serviceRowView.delete(row);
       }
     });
   }
