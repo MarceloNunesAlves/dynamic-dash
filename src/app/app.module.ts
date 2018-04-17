@@ -12,6 +12,7 @@ import { CreateWidgetComponent } from './create-widget/create-widget.component';
 import { MatChipInputEvent, MatChipsModule, MatInputModule, MatIconModule, MatButtonModule,
         MatAutocompleteModule, MatListModule, MatToolbarModule, MatSidenavModule, MatDrawer,
         MatCardModule, MatRadioModule, MatExpansionModule } from '@angular/material';
+import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { MetricService } from './services/metric.service';
 import { SiteService } from './services/site.service';
@@ -27,6 +28,7 @@ import { CovalentCommonModule, CovalentLayoutModule, CovalentMediaModule, Covale
         CovalentNotificationsModule, CovalentMenuModule, CovalentDataTableModule, CovalentMessageModule } from '@covalent/core';
 
 import 'hammerjs';
+import { ThemeService } from './services/theme.service';
 
 @NgModule({
   declarations: [
@@ -70,9 +72,11 @@ import 'hammerjs';
     CovalentNotificationsModule,
     CovalentMenuModule,
     CovalentDataTableModule,
-    CovalentMessageModule
+    CovalentMessageModule,
+    /*Layout*/
+    OverlayModule
   ],
-  providers: [ MetricService, SiteService, NodeService, GroupService, WidgetService, RowViewService ],
+  providers: [ MetricService, SiteService, NodeService, GroupService, WidgetService, RowViewService, ThemeService ],
   bootstrap: [AppComponent],
   exports: [
     FiltroName

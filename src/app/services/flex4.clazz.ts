@@ -5,12 +5,19 @@ export class SubItem {
     @Input() idOri: string;
     @Input() name: string;
     @Input() com: boolean;
-    @Input() color: string = (this.com ? 'primary' : 'warn');
     origin: TypeOrigin;
 
     constructor(idOri: string, name: string) {
         this.idOri = idOri;
         this.name = name;
+    }
+
+    get color(): string {
+        if (this.com) {
+            return 'primary';
+        } else {
+            return 'warn';
+        }
     }
 }
 
