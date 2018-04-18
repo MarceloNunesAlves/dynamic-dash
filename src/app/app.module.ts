@@ -29,13 +29,15 @@ import { CovalentCommonModule, CovalentLayoutModule, CovalentMediaModule, Covale
 
 import 'hammerjs';
 import { ThemeService } from './services/theme.service';
+import { CompanyComponent } from './company/company.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateWidgetComponent,
     FiltroName,
-    DialogDashboardComponent
+    DialogDashboardComponent,
+    CompanyComponent
   ],
   entryComponents: [DialogDashboardComponent],
   imports: [

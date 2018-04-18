@@ -1,0 +1,32 @@
+<div class="page-main">
+    <div class="card bg-light mb-3">
+      <div class="card-header">
+        Criação de grafico
+      </div>
+      <div class="card-body">
+        <form [formGroup]="formCompany" (submit)="salvar($event)">
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="form-graph">
+                <input placeholder="Nome da empresa:" matInput [(ngModel)]="company.name" formControlName="caption" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8">
+              <mat-form-field class="form-graph">
+
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col col-btn-salvar">
+              <button mat-raised-button color="primary" type="submit">
+                Salvar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

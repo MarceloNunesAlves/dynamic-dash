@@ -5,21 +5,18 @@ import { DashboardService } from './services/dashboard.service';
 import { ThemeService } from './services/theme.service';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
 import { Dashboard } from './services/dash.clazz';
-import { OverlayContainer} from '@angular/cdk/overlay';
-import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'Dashboard - Dinâmico';
 
   @HostBinding('class') componentCssClass;
 
-  constructor(public dialog: MatDialog, public overlayContainer: OverlayContainer,
-              public themeService: ThemeService) { }
+  constructor(public dialog: MatDialog) { }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogDashboardComponent, {
@@ -27,25 +24,6 @@ export class AppComponent implements OnInit {
       data: new Dashboard()
     });
   }
-
-  onSetTheme(theme) {
-    this.overlayContainer.getContainerElement().classList.add(theme);
-    this.componentCssClass = theme;
-
-    this.exportPdf();
-  }
-
-  exportPdf() {
-    this.themeService.theme().subscribe(data => {
-      // saveAs(new Blob([data]), `report.pdf`);
-    });
-    let f: File = new File([''], 'text.txt');
-    console.log(f);
- }
-
-  ngOnInit() {
-  }
-
 }
 
 @Component({

@@ -3,6 +3,7 @@ import {AppComponent} from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { BoardComponent } from './board/board.component';
 import { CreateWidgetComponent } from './create-widget/create-widget.component';
+import { CompanyComponent } from './company/company.component';
 
 export const routes: Routes = [
     {
@@ -12,6 +13,10 @@ export const routes: Routes = [
     {
         path: 'main-board',
         component: BoardComponent
+    },
+    {
+        path: 'company',
+        component: CompanyComponent
     },
     {
         path: 'widget',

@@ -16,3 +16,13 @@ export class RowView {
         this.dashboard = dashboard;
     }
 }
+
+export class Company {
+    id: number;
+    name: string;
+    colorPrimary: string;
+    fontPrimaryDark: boolean;
+    colorSecondary: string;
+    fontSecondaryDark: boolean;
+    logo: string;
+}
