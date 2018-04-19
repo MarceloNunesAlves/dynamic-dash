@@ -89,9 +89,8 @@ export class CreateWidgetComponent implements OnInit {
           this.widget.optionGraph.forEach(item => this.addItem(item));
           this.chart.createGraph();
         });
-      } else {
-        this.idDash = params['idDash'];
       }
+      this.idDash = params['idDash'];
     });
 
     this.formCreateGraph = new FormGroup({
@@ -122,7 +121,7 @@ export class CreateWidgetComponent implements OnInit {
       const rowView: RowView = new RowView(dashSel, [this.widget]);
       this.serviceRowView.post(rowView).subscribe();
     }
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/board/' + this.idDash);
   }
 
   createItem(m: Metric): FormGroup {
@@ -345,9 +344,9 @@ export class CreateWidgetComponent implements OnInit {
   }
 
   changeCol(): void {
-    if (this.widget.columnLayout == '1') {
+    if (this.widget.columnLayout === '1') {
       this.widget.classCol = 'col-lg-12';
-    } else if (this.widget.columnLayout == '2') {
+    } else if (this.widget.columnLayout === '2') {
       this.widget.classCol = 'col-lg-6 col-md-12';
     } else {
       this.widget.classCol = 'col-lg-4 col-md-6 col-sm-12';

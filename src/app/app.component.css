@@ -2,3 +2,38 @@
     width: 100%;
     text-align: center;
 }
+
+.logo {
+    width: 50px;
+    height: 50px;
+}
+
+.toolbar-top {
+    float: right;
+    text-align: right;
+    width: 100%;
+}
+
+.div-avatar-profile{
+    text-align: center;
+}
+.avatar-profile {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 25px;
+}
+
+.space-element {
+    height: 10px;
+}
+
+.label-font {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+    margin-bottom: 2px;
+}
+
+.font-small {
+    font-size: 12px;
+}

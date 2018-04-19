@@ -20,6 +20,7 @@ export class WidgetComponent {
   @Input() columnLayout: string;
   @Input() caption: string;
   @Input() optionGraph: Metric[] = [];
+  @Input() idDash: string;
   @ViewChild('chart_dash') chart: ChartComponent;
 
   constructor(public serviceWidget: WidgetService, public elemento:ElementRef) {

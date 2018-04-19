@@ -1,26 +1,37 @@
-<button mat-icon-button [matMenuTriggerFor]="menu">
-    <mat-icon>more_vert</mat-icon>
-</button>
-<mat-menu #menu="matMenu">
-    <button mat-menu-item [routerLink]="['/widget/dash/', dashboard.id]">
-        <mat-icon>add</mat-icon>
-        <span>Adicionar widget</span>
-    </button>
-    <button mat-menu-item (click)="updateDash()">
-        <mat-icon>check</mat-icon>
-        <span>Atualizar dashboard</span>
-    </button>
-</mat-menu>
-<div class="container-fluid">
-    <div class="row" *ngFor="let row of dashboard.rowsView; let row_index = index">
-        <div class="{{widget.classCol}}" *ngFor="let widget of row.widgets; let i = index">
-            <div dnd-sortable-container [sortableData]="row.widgets" [dropZones]="['container-dropZone']">
-                <div dnd-sortable [sortableIndex]="i">
-                    <app-widget [id]="widget.id" [caption]="widget.caption" #widget_main [height]="widget.height" [optionGraph]="widget.optionGraph">
-                    </app-widget>
+<div class="row">
+    <div class="container-board">
+        <div class="container-fluid">
+            <div class="row" *ngFor="let row of dashboard.rowsView; let row_index = index">
+                <div class="{{widget.classCol}}" *ngFor="let widget of row.widgets; let i = index">
+                    <div dnd-sortable-container [sortableData]="row.widgets" [dropZones]="['container-dropZone']">
+                        <div dnd-sortable [sortableIndex]="i">
+                            <app-widget [id]="widget.id" [idDash]="dashboard.id" [caption]="widget.caption" #widget_main [height]="widget.height" [optionGraph]="widget.optionGraph">
+                            </app-widget>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    <div class="menu-board">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item [routerLink]="['/widget/dash/', dashboard.id]">
+                <mat-icon>queue_play_next</mat-icon>
+                <span>Adicionar widget</span>
+            </button>
+            <mat-divider></mat-divider>
+            <button mat-menu-item (click)="removerDash()">
+                <mat-icon>delete_forever</mat-icon>
+                <span>Excluir dashboard</span>
+            </button>
+            <button mat-menu-item (click)="updateDash()">
+                <mat-icon>archive</mat-icon>
+                <span>Salvar alteração</span>
+            </button>
+        </mat-menu>
+    </div>
 <!-- [dragEnabled]="!dragOperation" -->
+</div>

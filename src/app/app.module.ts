@@ -33,6 +33,7 @@ import { CompanyComponent } from './company/company.component';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { ImageUploadModule } from "angular2-image-upload";
 import { CompanyService } from './services/company.service';
+import { AlterSassService } from './services/alterSass.service';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { CompanyService } from './services/company.service';
     ColorPickerModule,
     ImageUploadModule.forRoot()
   ],
-  providers: [ MetricService, SiteService, NodeService, GroupService, WidgetService, RowViewService, ThemeService, CompanyService ],
+  providers: [ MetricService, SiteService, NodeService, GroupService, WidgetService, RowViewService,
+                ThemeService, CompanyService, AlterSassService ],
   bootstrap: [AppComponent],
   exports: [
     FiltroName

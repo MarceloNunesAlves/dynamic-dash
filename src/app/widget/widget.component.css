@@ -5,3 +5,11 @@
 .card-box-button{
     float: right;
 }
+
+.card-box .card-box-button .mat-icon-button .mat-icon {
+    opacity: 0;
+}
+
+.card-box:hover .card-box-button .mat-icon-button .mat-icon {
+    opacity: 1;
+}

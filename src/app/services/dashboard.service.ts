@@ -33,4 +33,9 @@ export class DashboardService {
             return res.json();
         });
     }
+
+    delete(dashboard: Dashboard): Observable<any> {
+        return this.http.delete(this.url + dashboard.id, { headers : this.headers });
+    }
+
 }

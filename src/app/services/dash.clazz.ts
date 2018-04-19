@@ -26,3 +26,23 @@ export class Company {
     @Input() fontSecondaryDark: boolean = true;
     logo: string;
 }
+
+export class Color {
+    colorPrimary: DetailColor;
+    colorSecondary: DetailColor;
+
+    constructor(colorPrimary: DetailColor, colorSecondary: DetailColor) {
+        this.colorPrimary = colorPrimary;
+        this.colorSecondary = colorSecondary;
+    }
+}
+
+export class DetailColor {
+    hex: string;
+    dark: boolean;
+
+    constructor(hex: string, dark: boolean) {
+        this.hex = hex.replace('#', '');
+        this.dark = dark;
+    }
+}

@@ -11,7 +11,11 @@ export const routes: Routes = [
         component: BoardComponent
     },
     {
-        path: 'main-board',
+        path: 'board',
+        component: BoardComponent
+    },
+    {
+        path: 'board/:id',
         component: BoardComponent
     },
     {
@@ -23,7 +27,7 @@ export const routes: Routes = [
         component: CreateWidgetComponent
     },
     {
-        path: 'widget/:id',
+        path: 'widget/:id/dash/:idDash',
         component: CreateWidgetComponent
     },
     {

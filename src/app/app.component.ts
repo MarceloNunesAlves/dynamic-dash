@@ -4,7 +4,9 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { DashboardService } from './services/dashboard.service';
 import { ThemeService } from './services/theme.service';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
-import { Dashboard } from './services/dash.clazz';
+import { Dashboard, Company } from './services/dash.clazz';
+import { CompanyService } from './services/company.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -15,8 +17,22 @@ export class AppComponent {
   title = 'Dashboard - Dinâmico';
 
   @HostBinding('class') componentCssClass;
+  company: Company;
+  dashboards: Dashboard[];
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, public serviceCompany: CompanyService, public serviceDashboard: DashboardService) {
+    this.company = new Company();
+
+    this.serviceCompany.list().subscribe(list => {
+      if (list && list.length > 0) {
+        this.company = list[0];
+      }
+    });
+
+    serviceDashboard.list().subscribe((res) => {
+      this.dashboards = res;
+    });
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogDashboardComponent, {
@@ -37,7 +53,7 @@ export class DialogDashboardComponent {
   @Input() data: Dashboard;
 
   constructor( public dialogRef: MatDialogRef<DialogDashboardComponent>, @Inject(MAT_DIALOG_DATA) data: Dashboard,
-                service: DashboardService) {
+                service: DashboardService, public route: ActivatedRoute, public router: Router) {
     this.data = data;
     this.service = service;
     this.formCreateDash = new FormGroup({
@@ -52,7 +68,7 @@ export class DialogDashboardComponent {
   salvar(): void {
     console.log(this.data);
     this.service.post(this.data).subscribe(res => {
-      console.log(res);
+      this.router.navigateByUrl('/board/' + res.id);
     });
     this.dialogRef.close();
   }
