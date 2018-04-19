@@ -11,7 +11,7 @@ import { ChartModule } from './chart/chart.module';
 import { CreateWidgetComponent } from './create-widget/create-widget.component';
 import { MatChipInputEvent, MatChipsModule, MatInputModule, MatIconModule, MatButtonModule,
         MatAutocompleteModule, MatListModule, MatToolbarModule, MatSidenavModule, MatDrawer,
-        MatCardModule, MatRadioModule, MatExpansionModule } from '@angular/material';
+        MatCardModule, MatRadioModule, MatExpansionModule, MatSlideToggleModule } from '@angular/material';
 import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { MetricService } from './services/metric.service';
@@ -30,6 +30,9 @@ import { CovalentCommonModule, CovalentLayoutModule, CovalentMediaModule, Covale
 import 'hammerjs';
 import { ThemeService } from './services/theme.service';
 import { CompanyComponent } from './company/company.component';
+import { ColorPickerModule } from 'ngx-color-picker';
+import { ImageUploadModule } from "angular2-image-upload";
+import { CompanyService } from './services/company.service';
 
 @NgModule({
   declarations: [
@@ -60,6 +63,7 @@ import { CompanyComponent } from './company/company.component';
     MatSidenavModule,
     MatCardModule,
     MatRadioModule,
+    MatSlideToggleModule,
 
     /** Covalent Modules */
     CovalentCommonModule,
@@ -76,9 +80,12 @@ import { CompanyComponent } from './company/company.component';
     CovalentDataTableModule,
     CovalentMessageModule,
     /*Layout*/
-    OverlayModule
+    OverlayModule,
+    /* Color picker */
+    ColorPickerModule,
+    ImageUploadModule.forRoot()
   ],
-  providers: [ MetricService, SiteService, NodeService, GroupService, WidgetService, RowViewService, ThemeService ],
+  providers: [ MetricService, SiteService, NodeService, GroupService, WidgetService, RowViewService, ThemeService, CompanyService ],
   bootstrap: [AppComponent],
   exports: [
     FiltroName

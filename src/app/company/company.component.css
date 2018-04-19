@@ -1,0 +1,27 @@
+.input-color {
+    width: 80px;
+    border-radius: 5px;
+    border-style: groove;
+
+}
+
+.dark{
+    color: #000000;
+}
+
+.ligth{
+    color: #fff;
+}
+
+.input-name{
+    width: 60%;
+}
+
+.div-field {
+    margin-top: 10px;
+}
+
+.page-main{
+    width: 100%;
+    padding: 0.5em;
+}

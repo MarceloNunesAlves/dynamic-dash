@@ -1,25 +1,61 @@
 <div class="page-main">
     <div class="card bg-light mb-3">
       <div class="card-header">
-        Criação de grafico
+        Configurações da empresa
       </div>
       <div class="card-body">
         <form [formGroup]="formCompany" (submit)="salvar($event)">
-          <div class="row">
+          <div class="row div-field">
             <div class="col">
-              <mat-form-field class="form-graph">
-                <input placeholder="Nome da empresa:" matInput [(ngModel)]="company.name" formControlName="caption" />
+              <mat-form-field class="input-name">
+                <input placeholder="Nome da empresa:" matInput [(ngModel)]="company.name" formControlName="name"/>
               </mat-form-field>
             </div>
           </div>
-          <div class="row">
-            <div class="col-8">
-              <mat-form-field class="form-graph">
-
-              </mat-form-field>
+          <mat-divider></mat-divider>
+          <div class="row div-field">
+            <div class="col-2">
+              <label>Cor primário:</label>
+            </div>
+            <div class="col-1">
+              <input [style.background]="company.colorPrimary" [value]="company.colorPrimary"
+                    [(colorPicker)]="company.colorPrimary" formControlName="colorPrimary"
+                    class="input-color {{company.fontPrimaryDark?'dark':'ligth'}}"/>
+            </div>
+            <div class="col-9">
+              <mat-slide-toggle color="primary" [(ngModel)]="company.fontPrimaryDark" formControlName="fontPrimaryDark">
+                Fonte escura
+              </mat-slide-toggle>
             </div>
           </div>
-          <div class="row">
+          <div class="row div-field">
+            <div class="col-2">
+                <label>Cor secundário:</label>
+            </div>
+            <div class="col-1">
+              <input [style.background]="company.colorSecondary" [value]="company.colorSecondary"
+                    [(colorPicker)]="company.colorSecondary" formControlName="colorSecondary"
+                    class="input-color {{company.fontSecondaryDark?'dark':'ligth'}}"/>
+            </div>
+            <div class="col-9">
+                <mat-slide-toggle color="primary" [(ngModel)]="company.fontSecondaryDark" formControlName="fontSecondaryDark">
+                  Fonte escura
+                </mat-slide-toggle>
+            </div>
+          </div>
+          <mat-divider></mat-divider>
+          <div class="row div-field">
+            <div class="col-2">
+              <label>Logo do cliente:</label>
+            </div>
+            <div class="col-3">
+              <image-upload
+                (uploadFinished)="onUploadFinished($event)">
+              </image-upload>
+            </div>
+          </div>
+          <mat-divider class="div-field"></mat-divider>
+          <div class="row div-field">
             <div class="col col-btn-salvar">
               <button mat-raised-button color="primary" type="submit">
                 Salvar

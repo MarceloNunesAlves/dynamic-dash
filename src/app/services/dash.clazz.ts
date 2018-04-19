@@ -19,10 +19,10 @@ export class RowView {
 
 export class Company {
     id: number;
-    name: string;
-    colorPrimary: string;
-    fontPrimaryDark: boolean;
-    colorSecondary: string;
-    fontSecondaryDark: boolean;
-    logo: string;
+    @Input() name: string;
+    @Input() colorPrimary: string;
+    @Input() fontPrimaryDark: boolean = true;
+    @Input() colorSecondary: string;
+    @Input() fontSecondaryDark: boolean = true;
+    logo: File;
 }
