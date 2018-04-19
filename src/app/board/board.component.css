@@ -1,8 +1,12 @@
+.board-page {
+    width: 100%;
+}
+
 .menu-board {
     float: right;
-    width: 3%;
+    width: 2%;
 }
 
 .container-board {
-    width: 97%;
+    width: 98%;
 }

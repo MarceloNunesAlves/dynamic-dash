@@ -33,14 +33,7 @@
             <img [src]="company.logo" class="logo"/>
         </div>
         <mat-sidenav-container fullscreen>
-            <div layout-gt-sm="row" tdMediaToggle="gt-sm">
-                <router-outlet></router-outlet>
-            </div>
+            <router-outlet></router-outlet>
         </mat-sidenav-container>
     </td-layout-nav>
-    <td-layout-footer>
-        <div layout="row" layout-align="start center">
-            <span class="mat-caption">Copyright &copy; 2018 Flexvision. All rights reserved</span>
-        </div>
-    </td-layout-footer>
 </td-layout>
