@@ -14,6 +14,13 @@ export class CompanyComponent {
 
   constructor(public formBuilder: FormBuilder, public service: CompanyService) {
     this.company = new Company();
+
+    this.service.list().subscribe(list => {
+      if (list && list.length > 0) {
+        this.company = list[0];
+      }
+    });
+
     this.formCompany = this.formBuilder.group({
       name: [{value: ''}],
       colorPrimary: [{value: ''}],
@@ -29,12 +36,13 @@ export class CompanyComponent {
   salvar(event) {
     event.preventDefault();
     console.log(this.company);
-    this.service.post(this.company).subscribe(item => console.log(item));
+    this.service.post(this.company).subscribe(item => {
+      // Gera o scss de variáveis
+    });
   }
 
   onUploadFinished(file: FileHolder) {
-    console.log(file);
-    this.company.logo = file.file;
+    this.company.logo = file.src;
   }
 
 }

@@ -222,7 +222,12 @@ export class CreateWidgetComponent implements OnInit {
   }
 
   selectOption(event: MatAutocompleteSelectedEvent, textoFiltro) {
-    textoFiltro.value += event.option.value.name;
+    if (textoFiltro.value.includes(':')) {
+      let indexPoint = textoFiltro.value.indexOf(':');
+      textoFiltro.value = textoFiltro.value.substr(0, (indexPoint + 1)) + event.option.value.name;
+    } else {
+      textoFiltro.value = event.option.value.name;
+    }
   }
 
   add(event: MatChipInputEvent): void {
@@ -236,7 +241,7 @@ export class CreateWidgetComponent implements OnInit {
       if (value.includes('f4:') && value.length > 3) {
         /* Adiciona item no filtro */
         value = value.replace('f4:', '');
-        let metricAdd = this.listMetricWithType.filter(reg => reg.name.toLowerCase().includes(value))[0];
+        let metricAdd = this.listMetricWithType.filter(reg => reg.name.toLowerCase() === value)[0];
         if (metricAdd) {
           metricAdd = JSON.parse(JSON.stringify(metricAdd));
           this.optionFilter.push(metricAdd);
@@ -252,27 +257,27 @@ export class CreateWidgetComponent implements OnInit {
         let objFilter: SubItem;
         if (value.includes('&comelemento:')) {
           valueAux = valueAux.replace('&comelemento:', '');
-          objFilter = this.listNodes.filter(reg => reg.name.toLowerCase().includes(valueAux))[0];
+          objFilter = this.listNodes.filter(reg => reg.name.toLowerCase() === valueAux)[0];
           objFilter.com = true;
         } else if (value.includes('&comgrupo:')) {
           valueAux = valueAux.replace('&comgrupo:', '');
-          objFilter = this.listGroups.filter(reg => reg.name.toLowerCase().includes(valueAux))[0];
+          objFilter = this.listGroups.filter(reg => reg.name.toLowerCase() === valueAux)[0];
           objFilter.com = true;
         } else if (value.includes('&comsite:')) {
           valueAux = valueAux.replace('&comsite:', '');
-          objFilter = this.listSites.filter(reg => reg.name.toLowerCase().includes(valueAux))[0];
+          objFilter = this.listSites.filter(reg => reg.name.toLowerCase() === valueAux)[0];
           objFilter.com = true;
         } else if (value.includes('&semelemento:')) {
           valueAux = valueAux.replace('&semelemento:', '');
           objFilter.com = false;
-          objFilter = this.listNodes.filter(reg => reg.name.toLowerCase().includes(valueAux))[0];
+          objFilter = this.listNodes.filter(reg => reg.name.toLowerCase() === valueAux)[0];
         } else if (value.includes('&semgrupo:')) {
           valueAux = valueAux.replace('&semgrupo:', '');
-          objFilter = this.listGroups.filter(reg => reg.name.toLowerCase().includes(valueAux))[0];
+          objFilter = this.listGroups.filter(reg => reg.name.toLowerCase() === valueAux)[0];
           objFilter.com = false;
         } else if (value.includes('&semsite:')) {
           valueAux = valueAux.replace('&semsite:', '');
-          objFilter = this.listSites.filter(reg => reg.name.toLowerCase().includes(valueAux))[0];
+          objFilter = this.listSites.filter(reg => reg.name.toLowerCase() === valueAux)[0];
           objFilter.com = false;
         }
         if (objFilter) {

@@ -24,5 +24,5 @@ export class Company {
     @Input() fontPrimaryDark: boolean = true;
     @Input() colorSecondary: string;
     @Input() fontSecondaryDark: boolean = true;
-    logo: File;
+    logo: string;
 }
