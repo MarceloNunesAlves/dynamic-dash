@@ -7,7 +7,7 @@ import { MatChipInputEvent } from '@angular/material';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { FormControl, FormGroup, Validators, FormArray, FormBuilder } from '@angular/forms';
 import { ChartComponent } from '../chart/chart.component';
-import { SubItem, Metric } from '../services/flex4.clazz';
+import { SubItem, Metric, DataSourceOrigin } from '../services/flex4.clazz';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RowView, Dashboard } from '../services/dash.clazz';
@@ -52,6 +52,7 @@ export class CreateWidgetComponent implements OnInit {
   /*Dados do filtro*/
   options = [];
   listMetricWithType: Metric[] = [];
+  listMetricOther: Metric[] = [];
   listNodes: SubItem[] = [];
   listSites: SubItem[] = [];
   listGroups: SubItem[] = [];
@@ -155,7 +156,8 @@ export class CreateWidgetComponent implements OnInit {
       id: m.id, met_id: m.met_id, name: m.name,
       tituloSerie: m.tituloSerie, ndt_id: m.ndt_id,
       unit_type: m.unit_type, color: m.color,
-      position: m.position, options: this.fb.array(m.options)
+      position: m.position, ori: m.ori,
+      options: this.fb.array(m.options)
     });
     this.optionGraph.push(formGroupItem);
 
@@ -204,6 +206,13 @@ export class CreateWidgetComponent implements OnInit {
     this.serviceMetric.lista().subscribe(listMetric => {
       this.listMetricWithType = listMetric;
     });
+
+    let mOther: Metric = {id: 0,
+      met_id: '', name: 'TPS médio', tituloSerie: 'TPS médio',
+      color: '', position: 0, ndt_id: '',
+      unit_type: 'TPS', options: [],
+      ori: DataSourceOrigin.OTHER};
+    this.listMetricOther.push(mOther);
     this.resertList();
   }
 
@@ -220,7 +229,7 @@ export class CreateWidgetComponent implements OnInit {
     } else {
       this.options = [
         { name: 'flex4:' },
-        { name: 'ds:' }
+        { name: 'mir:' }
       ];
     }
   }
@@ -256,6 +265,16 @@ export class CreateWidgetComponent implements OnInit {
           value = '';
           cleanField = true;
         }
+      } else if (value.includes('mir:') && value.length > 4) {
+          /* Adiciona item no filtro */
+          value = value.replace('mir:', '');
+          let metricAdd = this.listMetricOther.filter(reg => reg.name.toLowerCase() === value)[0];
+          if (metricAdd) {
+            metricAdd = JSON.parse(JSON.stringify(metricAdd));
+            this.optionFilter.push(metricAdd);
+            value = '';
+            cleanField = true;
+          }
       } else if (value.includes('&com') || value.includes('&sem')) {
         let valueAux = value;
         let objFilter: SubItem;
@@ -334,6 +353,8 @@ export class CreateWidgetComponent implements OnInit {
     } else {
       if (texto.toLowerCase().includes('flex4:')) {
         this.options = this.listMetricWithType;
+      } else if (texto.toLowerCase().includes('mir:')) {
+          this.options = this.listMetricOther;
       } else {
         this.resertList();
       }

@@ -21,10 +21,15 @@ export class SubItem {
     }
 }
 
-enum TypeOrigin {
+export enum TypeOrigin {
     NODE,
     GROUP,
     SITE,
+}
+
+export enum DataSourceOrigin {
+    FLEX4,
+    OTHER,
 }
 
 export class Metric {
@@ -37,6 +42,7 @@ export class Metric {
     ndt_id: string;
     unit_type: string;
     options: SubItem[] = [];
+    ori: DataSourceOrigin;
 }
 
 export class DetailChart {

@@ -14,6 +14,7 @@ export class FiltroName implements PipeTransform {
         digitado = digitado.replace('&semgrupo:', '');
         digitado = digitado.replace('&comsite:', '');
         digitado = digitado.replace('&semsite:', '');
+        digitado = digitado.replace('mir:', '');
         digitado = digitado.trim();
         return lista.filter( reg => reg.name.toLowerCase().includes(digitado));
     }
