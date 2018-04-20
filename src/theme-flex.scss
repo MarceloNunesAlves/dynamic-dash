@@ -16,3 +16,9 @@ $my-app-accent:  mat-palette($mat-flex-accent, 50, 100, 200);
 
 $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent);
 @include angular-material-theme($my-app-theme);
+
+.input-color {
+  width: 80px;
+  border-radius: 5px;
+  border-style: groove;
+}

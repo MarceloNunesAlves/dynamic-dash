@@ -2,14 +2,14 @@ import { Http, Headers, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Metric, DetailChart, ValueSerie } from './flex4.clazz';
-
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class MetricService {
 
     http: Http;
     headers: Headers;
-    url = 'http://localhost:9000/metric/';
+    url = 'http://' + environment.backend + '/metric/';
 
     constructor(http: Http) {
         this.http = http;

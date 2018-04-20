@@ -82,7 +82,9 @@ export class ChartComponent implements OnInit {
             });
             chart.categories.push(new Categories(categoryChart));
             let objDetailSerie = new Dataset(detail.detailSerie.tituloSerie, dataSerie);
-
+            if (detail.detailSerie.color) {
+                objDetailSerie.color = detail.detailSerie.color;
+            }
             if ((yaxisname !== detail.detailSerie.unit_type && !different) || different) {
                 objDetailSerie.parentyaxis = 'S';
                 objDetailSerie.renderas = 'line';
@@ -151,6 +153,7 @@ export class Dataset {
     renderas: string;
     parentyaxis: string;
     data: DataSerie[];
+    color: string;
 
     constructor(seriesname: string, data: DataSerie[]) {
         this.seriesname = seriesname;

@@ -3,13 +3,14 @@ import { Injectable, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { WidgetComponent } from '../widget/widget.component';
 import { Dashboard } from './dash.clazz';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class DashboardService {
 
     http: Http;
     headers: Headers;
-    url = 'http://localhost:9000/dashboard/';
+    url: string = 'http://' + environment.backend + '/dashboard/';
 
     constructor(http: Http) {
         this.http = http;

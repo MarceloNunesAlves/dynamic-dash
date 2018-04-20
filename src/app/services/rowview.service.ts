@@ -3,13 +3,14 @@ import { Injectable, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { WidgetComponent } from '../widget/widget.component';
 import { Dashboard, RowView } from './dash.clazz';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class RowViewService {
 
     http: Http;
     headers: Headers;
-    url = 'http://localhost:9000/rowView/';
+    url = 'http://' + environment.backend + '/rowView/';
 
     constructor(http: Http) {
         this.http = http;

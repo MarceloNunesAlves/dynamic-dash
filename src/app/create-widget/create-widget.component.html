@@ -79,6 +79,7 @@
                   <mat-form-field class="form-graph">
                     <input placeholder="Titulo da serie:" matInput formControlName="tituloSerie"/>
                   </mat-form-field>
+                  <input [style.background]="op.value.color" [(colorPicker)]="op.value.color" formControlName="color" class="input-color"/>
                   <mat-selection-list>
                     <mat-list-option *ngFor="let detail of op.value.options">
                       {{detail.com ? 'Com ' : 'Sem '}} {{detail.origin == 'SITE' ? 'o site: ' : ''}} {{detail.origin == 'NODE' ? 'o elemento: '

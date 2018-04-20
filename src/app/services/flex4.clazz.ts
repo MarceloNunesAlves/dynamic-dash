@@ -33,6 +33,7 @@ export class Metric {
     @Input() name: string;
     @Input() tituloSerie: string;
     @Input() color: string = '';
+    position: number;
     ndt_id: string;
     unit_type: string;
     options: SubItem[] = [];

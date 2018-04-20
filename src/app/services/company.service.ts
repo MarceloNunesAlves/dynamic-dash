@@ -3,13 +3,14 @@ import { Injectable, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { WidgetComponent } from '../widget/widget.component';
 import { Company } from './dash.clazz';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class CompanyService {
 
     http: Http;
     headers: Headers;
-    url = 'http://localhost:9000/company/';
+    url: string = 'http://' + environment.backend + '/company/';
 
     constructor(http: Http) {
         this.http = http;

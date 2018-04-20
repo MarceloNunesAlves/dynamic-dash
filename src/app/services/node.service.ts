@@ -2,13 +2,14 @@ import { Http, Headers, Response } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { SubItem, Metric } from './flex4.clazz';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class NodeService {
 
     http: Http;
     headers: Headers;
-    url = 'http://localhost:9000/node/';
+    url = 'http://' + environment.backend + '/node/';
 
     constructor(http: Http) {
         this.http = http;

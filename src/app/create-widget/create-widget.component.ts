@@ -141,6 +141,7 @@ export class CreateWidgetComponent implements OnInit {
       }
     });
 
+    mAux.position = this.optionGraph.value.length + 1;
     this.addItem(mAux);
 
     this.optionFilter = [];
@@ -153,7 +154,8 @@ export class CreateWidgetComponent implements OnInit {
     let formGroupItem = this.fb.group({
       id: m.id, met_id: m.met_id, name: m.name,
       tituloSerie: m.tituloSerie, ndt_id: m.ndt_id,
-      unit_type: m.unit_type, options: this.fb.array(m.options)
+      unit_type: m.unit_type, color: m.color,
+      position: m.position, options: this.fb.array(m.options)
     });
     this.optionGraph.push(formGroupItem);
 
@@ -170,6 +172,9 @@ export class CreateWidgetComponent implements OnInit {
       }
       return 0;
     }));
+    this.optionGraph.value.forEach((element, index) => {
+      element.position = index + 1;
+    });
   }
 
   changeSort(event, chart: ChartComponent) {
@@ -214,7 +219,7 @@ export class CreateWidgetComponent implements OnInit {
       ];
     } else {
       this.options = [
-        { name: 'f4:' },
+        { name: 'flex4:' },
         { name: 'ds:' }
       ];
     }
@@ -237,9 +242,9 @@ export class CreateWidgetComponent implements OnInit {
     // Adiciona o filtro
     if ((value || '').trim()) {
       value = value.toLowerCase();
-      if (value.includes('f4:') && value.length > 3) {
+      if (value.includes('flex4:') && value.length > 6) {
         /* Adiciona item no filtro */
-        value = value.replace('f4:', '');
+        value = value.replace('flex4:', '');
         let metricAdd = this.listMetricWithType.filter(reg => reg.name.toLowerCase() === value)[0];
         if (metricAdd) {
           metricAdd = JSON.parse(JSON.stringify(metricAdd));
@@ -327,7 +332,7 @@ export class CreateWidgetComponent implements OnInit {
         this.resertList();
       }
     } else {
-      if (texto.toLowerCase().includes('f4:')) {
+      if (texto.toLowerCase().includes('flex4:')) {
         this.options = this.listMetricWithType;
       } else {
         this.resertList();
