@@ -165,6 +165,7 @@ export class CreateWidgetComponent implements OnInit {
   }
 
   sortItems() {
+    // Verifica se é edição
     if (!this.widget.id) {
       this.optionGraph.patchValue(this.optionGraph.value.sort((obj1, obj2) => {
         if (obj1.unit_type > obj2.unit_type) {
