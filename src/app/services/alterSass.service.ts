@@ -3,13 +3,14 @@ import { Injectable, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { WidgetComponent } from '../widget/widget.component';
 import { Color } from './dash.clazz';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class AlterSassService {
 
     http: Http;
     headers: Headers;
-    url = 'http://localhost:9001/sass/';
+    url = 'http://' + environment.backend + ':9001/sass/';
 
     constructor(http: Http) {
         this.http = http;
