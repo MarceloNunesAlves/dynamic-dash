@@ -66,7 +66,6 @@ export class DialogDashboardComponent {
   }
 
   salvar(): void {
-    console.log(this.data);
     this.service.post(this.data).subscribe(res => {
       this.router.navigateByUrl('/board/' + res.id);
     });

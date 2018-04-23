@@ -36,7 +36,7 @@ export class CompanyComponent {
 
   salvar(event) {
     event.preventDefault();
-    console.log(this.company);
+
     this.service.post(this.company).subscribe(item => {
       // Gera o scss de variáveis
       let color: Color = new Color(

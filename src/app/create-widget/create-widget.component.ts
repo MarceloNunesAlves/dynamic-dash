@@ -108,7 +108,8 @@ export class CreateWidgetComponent implements OnInit {
 
     // Preencher itens do widget
     this.widget.optionGraph = [];
-    this.optionGraph.value.forEach(element => {
+    this.optionGraph.value.forEach((element, index) => {
+      element.position = index + 1;
       this.widget.optionGraph.push(element);
     });
 
@@ -160,23 +161,31 @@ export class CreateWidgetComponent implements OnInit {
       options: this.fb.array(m.options)
     });
     this.optionGraph.push(formGroupItem);
-
     this.sortItems();
   }
 
   sortItems() {
-    this.optionGraph.patchValue(this.optionGraph.value.sort((obj1, obj2) => {
-      if (obj1.unit_type > obj2.unit_type) {
-        return this.sortDesc ? -1 : 1;
-      }
-      if (obj1.unit_type < obj2.unit_type) {
-        return this.sortDesc ? 1 : -1;
-      }
-      return 0;
-    }));
-    this.optionGraph.value.forEach((element, index) => {
-      element.position = index + 1;
-    });
+    if (!this.widget.id) {
+      this.optionGraph.patchValue(this.optionGraph.value.sort((obj1, obj2) => {
+        if (obj1.unit_type > obj2.unit_type) {
+          return this.sortDesc ? -1 : 1;
+        }
+        if (obj1.unit_type < obj2.unit_type) {
+          return this.sortDesc ? 1 : -1;
+        }
+        return 0;
+      }));
+    } else {
+      this.optionGraph.patchValue(this.optionGraph.value.sort((obj1, obj2) => {
+        if (obj1.position > obj2.position) {
+          return this.sortDesc ? -1 : 1;
+        }
+        if (obj1.position < obj2.position) {
+          return this.sortDesc ? 1 : -1;
+        }
+        return 0;
+      }));
+    }
   }
 
   changeSort(event, chart: ChartComponent) {

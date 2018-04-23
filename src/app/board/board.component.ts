@@ -52,7 +52,7 @@ export class BoardComponent {
     this.dashboard.rowsView.forEach(row => {
       if (row.widgets.length > 0) {
         this.serviceRowView.post(row).subscribe(res => {
-          console.log(res);
+          console.log('Dashboard atualizado!');
         });
       } else {
         this.serviceRowView.delete(row);
