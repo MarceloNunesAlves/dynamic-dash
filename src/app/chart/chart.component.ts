@@ -82,6 +82,7 @@ export class ChartComponent implements OnInit {
             });
             chart.categories.push(new Categories(categoryChart));
             let objDetailSerie = new Dataset(detail.detailSerie.tituloSerie, dataSerie);
+            
             if (detail.detailSerie.color) {
                 objDetailSerie.color = detail.detailSerie.color;
             }

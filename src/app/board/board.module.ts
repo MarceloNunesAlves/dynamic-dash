@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
 import { DashboardService } from '../services/dashboard.service';
 import { MatChipsModule, MatInputModule, MatIconModule, MatButtonModule,
   MatAutocompleteModule, MatListModule, MatToolbarModule, MatSidenavModule,
-  MatCardModule, MatRadioModule, MatExpansionModule, MatMenuModule } from '@angular/material';
+  MatCardModule, MatRadioModule, MatExpansionModule, MatMenuModule, MatTooltipModule } from '@angular/material';
 
 @NgModule({
   imports: [
@@ -17,7 +17,7 @@ import { MatChipsModule, MatInputModule, MatIconModule, MatButtonModule,
     MatChipsModule, MatInputModule, MatIconModule, MatButtonModule,
     MatAutocompleteModule, MatListModule, MatToolbarModule, MatSidenavModule,
     MatCardModule, MatRadioModule, MatExpansionModule, MatMenuModule,
-    RouterModule,
+    RouterModule, MatTooltipModule,
     DndModule.forRoot()
   ],
   declarations: [

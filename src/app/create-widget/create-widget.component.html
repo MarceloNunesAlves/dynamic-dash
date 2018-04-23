@@ -21,9 +21,11 @@
           </div>
           <div class="col-4">
             <mat-radio-group [(ngModel)]="widget.columnLayout" formControlName="columnLayout" (change)="changeCol()">
-              <mat-radio-button value="1">Tamanho 1</mat-radio-button>
-              <mat-radio-button value="2">Tamanho 2</mat-radio-button>
-              <mat-radio-button value="3">Tamanho 3</mat-radio-button>
+              <mat-radio-button value="1">100%</mat-radio-button>
+              <mat-radio-button value="2">75%</mat-radio-button>
+              <mat-radio-button value="3">50%</mat-radio-button>
+              <mat-radio-button value="4">33%</mat-radio-button>
+              <mat-radio-button value="5">25%</mat-radio-button>
             </mat-radio-group>
           </div>
         </div>
@@ -41,7 +43,7 @@
                   {{filtro.name}}
                   <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
                 </mat-chip>
-                <input placeholder="Novo filtro..." #textoFiltro (keyup)="verifList($event, textoFiltro.value)" matInput [formControl]="chipControl"
+                <input placeholder="Nova serie..." #textoFiltro (keyup)="verifList($event, textoFiltro.value)" matInput [formControl]="chipControl"
                   [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
                   (matChipInputTokenEnd)="add($event)" [matAutocomplete]="auto" />
               </mat-chip-list>
@@ -53,11 +55,14 @@
             </mat-autocomplete>
           </div>
           <div class="col-2 button-row">
-            <button mat-mini-fab (click)="addSerie($event, chart_template)" color="basic">
-              <mat-icon aria-label="Adicionar">check</mat-icon>
+            <button mat-mini-fab (click)="addSerie($event, chart_template)" color="basic" matTooltip="Adicionar serie">
+              <mat-icon>check</mat-icon>
             </button>
-            <button mat-mini-fab (click)="changeSort($event, chart_template)">
-              <mat-icon aria-label="Mudar order">swap_vert</mat-icon>
+            <button mat-mini-fab (click)="changeSort($event, chart_template)" matTooltip="Ordenar serie">
+              <mat-icon>swap_vert</mat-icon>
+            </button>
+            <button mat-mini-fab (click)="updateChart($event, chart_template)" matTooltip="Atualizar gráfico">
+              <mat-icon>loop</mat-icon>
             </button>
           </div>
         </div>
@@ -79,7 +84,7 @@
                   <mat-form-field class="form-graph">
                     <input placeholder="Titulo da serie:" matInput formControlName="tituloSerie"/>
                   </mat-form-field>
-                  <input [style.background]="op.value.color" [(colorPicker)]="op.value.color" formControlName="color" class="input-color"/>
+                  <input [style.background]="op.value.color" [(colorPicker)]="op.value.color" formControlName="color" class="input-color" matTooltip="Cor da serie"/>
                   <mat-selection-list>
                     <mat-list-option *ngFor="let detail of op.value.options">
                       {{detail.com ? 'Com ' : 'Sem '}} {{detail.origin == 'SITE' ? 'o site: ' : ''}} {{detail.origin == 'NODE' ? 'o elemento: '

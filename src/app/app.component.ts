@@ -13,7 +13,7 @@ import { Router, ActivatedRoute } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'Dashboard - Dinâmico';
 
   @HostBinding('class') componentCssClass;
@@ -22,22 +22,28 @@ export class AppComponent {
 
   constructor(public dialog: MatDialog, public serviceCompany: CompanyService, public serviceDashboard: DashboardService) {
     this.company = new Company();
+  }
 
+  ngOnInit () {
     this.serviceCompany.list().subscribe(list => {
       if (list && list.length > 0) {
         this.company = list[0];
       }
     });
-
-    serviceDashboard.list().subscribe((res) => {
+    this.dashboards = [];
+    this.serviceDashboard.list().subscribe((res) => {
       this.dashboards = res;
     });
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(DialogDashboardComponent, {
+    let dialogRef = this.dialog.open(DialogDashboardComponent, {
       width: '350px',
       data: new Dashboard()
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.ngOnInit();
     });
   }
 }

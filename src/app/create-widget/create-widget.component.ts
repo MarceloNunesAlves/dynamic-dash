@@ -77,7 +77,7 @@ export class CreateWidgetComponent implements OnInit {
     this.fb = fb;
     this.route = route;
     this.router = router;
-    this.widget = new WidgetComponent(serviceWidget, null);
+    this.widget = new WidgetComponent(serviceWidget, null, serviceRowView);
     this.widget.height = '250px';
     this.widget.columnLayout = '1';
     this.changeCol();
@@ -88,6 +88,7 @@ export class CreateWidgetComponent implements OnInit {
         serviceWidget.get(id).subscribe(res => {
           this.widget = res;
           this.widget.optionGraph.forEach(item => this.addItem(item));
+          this.sortItemsInit();
           this.chart.createGraph();
         });
       }
@@ -164,35 +165,40 @@ export class CreateWidgetComponent implements OnInit {
     this.sortItems();
   }
 
+  sortItemsInit() {
+    this.optionGraph.patchValue(this.optionGraph.value.sort((obj1, obj2) => {
+      if (obj1.position > obj2.position) {
+        return 1;
+      }
+      if (obj1.position < obj2.position) {
+        return -1;
+      }
+      return 0;
+    }));
+  }
+
   sortItems() {
-    // Verifica se é edição
-    if (!this.widget.id) {
-      this.optionGraph.patchValue(this.optionGraph.value.sort((obj1, obj2) => {
-        if (obj1.unit_type > obj2.unit_type) {
-          return this.sortDesc ? -1 : 1;
-        }
-        if (obj1.unit_type < obj2.unit_type) {
-          return this.sortDesc ? 1 : -1;
-        }
-        return 0;
-      }));
-    } else {
-      this.optionGraph.patchValue(this.optionGraph.value.sort((obj1, obj2) => {
-        if (obj1.position > obj2.position) {
-          return this.sortDesc ? -1 : 1;
-        }
-        if (obj1.position < obj2.position) {
-          return this.sortDesc ? 1 : -1;
-        }
-        return 0;
-      }));
-    }
+    this.optionGraph.patchValue(this.optionGraph.value.sort((obj1, obj2) => {
+      if (obj1.unit_type > obj2.unit_type) {
+        return this.sortDesc ? -1 : 1;
+      }
+      if (obj1.unit_type < obj2.unit_type) {
+        return this.sortDesc ? 1 : -1;
+      }
+      return 0;
+    }));
   }
 
   changeSort(event, chart: ChartComponent) {
     event.preventDefault();
     this.sortDesc = !this.sortDesc;
     this.sortItems();
+    this.executarGraph(chart);
+  }
+
+  updateChart(event, chart: ChartComponent) {
+    event.preventDefault();
+
     this.executarGraph(chart);
   }
 
@@ -217,12 +223,14 @@ export class CreateWidgetComponent implements OnInit {
       this.listMetricWithType = listMetric;
     });
 
-    let mOther: Metric = {id: 0,
-      met_id: '', name: 'TPS médio', tituloSerie: 'TPS médio',
-      color: '', position: 0, ndt_id: '',
-      unit_type: 'TPS', options: [],
-      ori: DataSourceOrigin.OTHER};
-    this.listMetricOther.push(mOther);
+    let mOther1: Metric = {id: null, met_id: '1', name: 'TPS médio', tituloSerie: 'TPS médio', color: '', position: 0, unit_type: 'TPS', ndt_id:'', options: [], ori: DataSourceOrigin.OTHER};
+    let mOther2: Metric = {id: null, met_id: '2', name: '% Aprovadas', tituloSerie: '% Aprovadas', color: '', position: 0, unit_type: '%', ndt_id:'', options: [], ori: DataSourceOrigin.OTHER};
+    let mOther3: Metric = {id: null, met_id: '3', name: '% Negadas', tituloSerie: '% Negadas', color: '', position: 0, unit_type: '%', ndt_id:'', options: [], ori: DataSourceOrigin.OTHER};
+    let mOther4: Metric = {id: null, met_id: '4', name: 'Total de transações', tituloSerie: 'Total de transações', color: '', position: 0, unit_type: 'Volume', ndt_id:'', options: [], ori: DataSourceOrigin.OTHER};
+    this.listMetricOther.push(mOther1);
+    this.listMetricOther.push(mOther2);
+    this.listMetricOther.push(mOther3);
+    this.listMetricOther.push(mOther4);
     this.resertList();
   }
 
@@ -383,9 +391,13 @@ export class CreateWidgetComponent implements OnInit {
     if (this.widget.columnLayout === '1') {
       this.widget.classCol = 'col-lg-12';
     } else if (this.widget.columnLayout === '2') {
+      this.widget.classCol = 'col-lg-9 col-md-12';
+    } else if (this.widget.columnLayout === '3') {
       this.widget.classCol = 'col-lg-6 col-md-12';
-    } else {
+    } else if (this.widget.columnLayout === '4') {
       this.widget.classCol = 'col-lg-4 col-md-6 col-sm-12';
+    } else {
+      this.widget.classCol = 'col-lg-3 col-md-6 col-sm-12';
     }
   }
 }

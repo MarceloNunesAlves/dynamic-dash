@@ -1,4 +1,4 @@
-import { Component, Input, Inject } from '@angular/core';
+import { Component, Input, Inject, OnInit } from '@angular/core';
 import { WidgetComponent } from '../widget/widget.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { FormControl, FormGroup, Validators, FormArray, FormBuilder } from '@angular/forms';
@@ -15,7 +15,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './board.component.html',
   styleUrls: ['./board.component.css']
 })
-export class BoardComponent {
+export class BoardComponent implements OnInit {
 
   @Input() dashboard: Dashboard = new Dashboard();
   dashboards: Array<Dashboard>;
@@ -23,23 +23,6 @@ export class BoardComponent {
   constructor(public service: DashboardService, public serviceRowView: RowViewService,
               public route: ActivatedRoute, public router: Router) {
 
-    route.params.subscribe(params => {
-      let id = params['id'];
-      if (id) {
-        service.get(id).subscribe(res => {
-          this.dashboard = res;
-          this.loadRows(this.dashboard);
-        });
-      } else {
-        service.list().subscribe((res) => {
-          this.dashboards = res;
-          if (this.dashboards.length > 0) {
-            this.dashboard = this.dashboards[0];
-            this.loadRows(this.dashboard);
-          }
-        });
-      }
-    });
   }
 
   loadRows(dashboard) {
@@ -63,6 +46,27 @@ export class BoardComponent {
   removerDash() {
     this.service.delete(this.dashboard).subscribe(res => {
       this.router.navigateByUrl('/');
+      window.location.reload();
+    });
+  }
+
+  ngOnInit() {
+    this.route.params.subscribe(params => {
+      let id = params['id'];
+      if (id) {
+        this.service.get(id).subscribe(res => {
+          this.dashboard = res;
+          this.loadRows(this.dashboard);
+        });
+      } else {
+        this.service.list().subscribe((res) => {
+          this.dashboards = res;
+          if (this.dashboards.length > 0) {
+            this.dashboard = this.dashboards[0];
+            this.loadRows(this.dashboard);
+          }
+        });
+      }
     });
   }
 

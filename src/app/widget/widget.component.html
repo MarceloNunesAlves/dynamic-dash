@@ -1,9 +1,12 @@
 <mat-card class="card-box">
     <mat-card-header class="card-box-button">
-            <button mat-icon-button [routerLink]="['/widget/', id, 'dash', idDash]">
+            <button mat-icon-button (click)="addNewRow()" matTooltip="Adicionar em uma nova linha">
+                <mat-icon>playlist_add</mat-icon>
+            </button>
+            <button mat-icon-button [routerLink]="['/widget/', id, 'dash', idDash]" matTooltip="Editar widget">
                 <mat-icon>edit</mat-icon>
             </button>
-            <button mat-icon-button (click)="delete(widget_main)">
+            <button mat-icon-button (click)="delete(widget_main)" matTooltip="Remover widget">
                 <mat-icon>delete</mat-icon>
             </button>
     </mat-card-header>

@@ -11,7 +11,7 @@ import { ChartModule } from './chart/chart.module';
 import { CreateWidgetComponent } from './create-widget/create-widget.component';
 import { MatChipInputEvent, MatChipsModule, MatInputModule, MatIconModule, MatButtonModule,
         MatAutocompleteModule, MatListModule, MatToolbarModule, MatSidenavModule, MatDrawer,
-        MatCardModule, MatRadioModule, MatExpansionModule, MatSlideToggleModule } from '@angular/material';
+        MatCardModule, MatRadioModule, MatExpansionModule, MatSlideToggleModule, MatTooltipModule } from '@angular/material';
 import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 import { ENTER, COMMA } from '@angular/cdk/keycodes';
 import { MetricService } from './services/metric.service';
@@ -65,6 +65,7 @@ import { AlterSassService } from './services/alterSass.service';
     MatCardModule,
     MatRadioModule,
     MatSlideToggleModule,
+    MatTooltipModule,
 
     /** Covalent Modules */
     CovalentCommonModule,

@@ -4,8 +4,9 @@
             <div class="row" *ngFor="let row of dashboard.rowsView; let row_index = index">
                 <div class="{{widget.classCol}}" *ngFor="let widget of row.widgets; let i = index">
                     <div dnd-sortable-container [sortableData]="row.widgets" [dropZones]="['container-dropZone']">
-                        <div dnd-sortable [sortableIndex]="i">
-                            <app-widget [id]="widget.id" [idDash]="dashboard.id" [caption]="widget.caption" #widget_main [height]="widget.height" [optionGraph]="widget.optionGraph">
+                        <div dnd-sortable [sortableIndex]="i" (onDropSuccess)="updateDash()">
+                            <app-widget [id]="widget.id" [idDash]="dashboard.id" [caption]="widget.caption" #widget_main
+                                        [row]="row" [height]="widget.height" [optionGraph]="widget.optionGraph">
                             </app-widget>
                         </div>
                     </div>
@@ -14,7 +15,7 @@
         </div>
     </div>
     <div class="menu-board">
-        <button mat-icon-button [matMenuTriggerFor]="menu">
+        <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Opções">
             <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
@@ -26,10 +27,6 @@
             <button mat-menu-item (click)="removerDash()">
                 <mat-icon>delete_forever</mat-icon>
                 <span>Excluir dashboard</span>
-            </button>
-            <button mat-menu-item (click)="updateDash()">
-                <mat-icon>archive</mat-icon>
-                <span>Salvar alteração</span>
             </button>
         </mat-menu>
     </div>

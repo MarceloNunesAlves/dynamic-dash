@@ -10,3 +10,7 @@
 .container-board {
     width: 98%;
 }
+
+.panel-add-row {
+    height: 200px;
+}
