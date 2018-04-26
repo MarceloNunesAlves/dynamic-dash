@@ -10,7 +10,7 @@ export class AlterSassService {
 
     http: Http;
     headers: Headers;
-    url = 'http://' + environment.backend + ':9001/sass/';
+    url = 'http://' + environment.sass + '/sass/';
 
     constructor(http: Http) {
         this.http = http;
