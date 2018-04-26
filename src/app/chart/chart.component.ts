@@ -102,7 +102,8 @@ export class ChartComponent implements OnInit {
         this.dataSource = chart;
     }
     formatTime(dtStr: string): string {
-        let dt: Date = new Date(dtStr);
+        let a: string[] = dtStr.split(/[^0-9]/);
+        let dt: Date = new Date(Number(a[0]),Number(a[1])-1,Number(a[2]),Number(a[3]),Number(a[4]),Number(a[5]));
         return ('0' + dt.getHours()).slice(-2) + ':' + ('0' + dt.getMinutes()).slice(-2);
     }
 
