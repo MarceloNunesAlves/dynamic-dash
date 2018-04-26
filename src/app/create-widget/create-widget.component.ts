@@ -37,7 +37,7 @@ export class CreateWidgetComponent implements OnInit {
 
   // Enter, comma
   // separatorKeysCodes = [ENTER, COMMA];
-  separatorKeysCodes = [ENTER];
+  separatorKeysCodes = [ENTER, COMMA];
   chipControl: FormControl = new FormControl();
   autoCompleteControl: FormControl = new FormControl();
 
@@ -310,8 +310,8 @@ export class CreateWidgetComponent implements OnInit {
           objFilter.com = true;
         } else if (value.includes('&semelemento:')) {
           valueAux = valueAux.replace('&semelemento:', '');
-          objFilter.com = false;
           objFilter = this.listNodes.filter(reg => reg.name.toLowerCase() === valueAux)[0];
+          objFilter.com = false;
         } else if (value.includes('&semgrupo:')) {
           valueAux = valueAux.replace('&semgrupo:', '');
           objFilter = this.listGroups.filter(reg => reg.name.toLowerCase() === valueAux)[0];
